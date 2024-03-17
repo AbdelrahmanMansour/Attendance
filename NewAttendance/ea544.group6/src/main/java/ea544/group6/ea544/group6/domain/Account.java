@@ -3,14 +3,17 @@ package ea544.group6.ea544.group6.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Data
-public class Account {
+public class Account implements Serializable {
 
-    enum AccountType {
+    private static final long serialVersionUID = 1L;
+
+    public enum AccountType {
         EATING,
         ATTENDANCE,
         VIRTUAL_DOLLAR
