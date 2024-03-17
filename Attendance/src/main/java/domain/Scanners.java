@@ -1,9 +1,6 @@
 package domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -14,8 +11,18 @@ public class Scanners {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String sacannerCode;
+    @Column(name = "scanner_code")
+    private String scannerCode;
+
+    @Column(name = "name")
+    private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "location_id")
     private Location location;
+
+    @ManyToOne
+    @JoinColumn(name = "account_id")
     private Account account;
 
 }

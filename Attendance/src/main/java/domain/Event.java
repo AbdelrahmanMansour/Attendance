@@ -13,20 +13,25 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
-    private String desciption;
+    @Column(name = "description")
+    private String description;
 
-    @ManyToOne
+    @OneToOne
+    @JoinColumn(name = "schedule_id")
     private Schedule schedule;
 
     @ManyToOne
+    @JoinColumn(name = "location_id")
     private Location location;
 
     @ManyToMany(mappedBy = "eventList")
     private List<Member> members;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "account_id")
     private Account account;
 
 }

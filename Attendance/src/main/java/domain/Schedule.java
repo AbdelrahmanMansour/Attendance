@@ -1,10 +1,8 @@
 package domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+import org.joda.time.DateTime;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,7 +15,35 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate day;
+    @Column(name = "monday")
+    private Boolean monday;
+
+    @Column(name = "tuesday")
+    private Boolean tuesday;
+
+    @Column(name = "wednesday")
+    private Boolean wednesday;
+
+    @Column(name = "thursday")
+    private Boolean thursday;
+
+    @Column(name = "friday")
+    private Boolean friday;
+
+    @Column(name = "saturday")
+    private Boolean saturday;
+
+    @Column(name = "sunday")
+    private Boolean sunday;
+
+    @Column(name = "start_time")
+    private DateTime startTime;
+
+    @Column(name = "end_time")
+    private DateTime endTime;
+
+    @OneToMany
+    @JoinColumn(name = "schedule_id")
     private List<Session> sessions;
 
 

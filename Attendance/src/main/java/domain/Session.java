@@ -1,12 +1,11 @@
 package domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -16,6 +15,21 @@ public class Session {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "session_name")
+    private String name;
+
+    @Column(name = "start_session_time")
     private LocalDateTime startTime;
+
+    @Column(name = "end_session_time")
     private LocalDateTime endTime;
+
+    @ManyToOne
+    @JoinColumn(name = "scanner_id")
+    private Scanners scanner;
+
+    @ManyToMany(mappedBy = "sessionList")
+    private List<Member> memberList = new ArrayList<Member>();
+
+
 }

@@ -1,10 +1,10 @@
 package domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -14,7 +14,18 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
-    private String desciption;
+    @Column(name = "description")
+    private String description;
+
+    @ManyToMany
+    @JoinTable( name = "Account_Role",
+    joinColumns = {@JoinColumn(name = "role_id")},
+    inverseJoinColumns = {@JoinColumn(name = "account_id")})
+    private List<Account> accounts = new ArrayList<Account>();
+
+    @ManyToMany(mappedBy = "roles")
+    private List<Member> members = new ArrayList<Member>();
 }
