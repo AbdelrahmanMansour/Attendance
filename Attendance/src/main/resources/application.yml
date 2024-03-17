@@ -1,0 +1,38 @@
+common:
+  security:
+    enabled: false
+  feign-oauth:
+    enabled: false
+  mvc:
+    enabled: false
+server:
+  ssl:
+    enabled: false
+  servlet:
+    context-path: /badge-system
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/NEW
+    username: postgres
+    password: A123@123h
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximumPoolSize: 10
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  security:
+    user:
+      name: user
+      password: 123
+  application:
+    name: cs544-202403-project
+
+logging:
+  level:
+    root: INFO
+  file:
+    name: /CS544/Logging/${spring.application.name}/logs
