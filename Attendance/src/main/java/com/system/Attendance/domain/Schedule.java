@@ -16,6 +16,7 @@ public class Schedule implements Serializable {
     private Long id;
 
     private LocalDate day;
+
     @OneToMany
     @JoinColumn(name = "schedule_id")
     private List<Session> sessions;

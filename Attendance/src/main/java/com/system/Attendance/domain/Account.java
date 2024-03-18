@@ -20,4 +20,12 @@ public class Account implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private AccountType type;
+
+    @ManyToOne
+    private Scanner scanner;
+
+    @ManyToMany(mappedBy = "accounts")
+    private Role role;
+
+
 }
