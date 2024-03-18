@@ -14,12 +14,32 @@ public class Scanners implements Serializable {
     private Long id;
 
     private String sacannerCode;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "account_id")
     private Account account;
 
+    public Scanners() {
+    }
+
+    public Scanners(String sacannerCode, Location location, Account account) {
+        this.sacannerCode = sacannerCode;
+        this.location = location;
+        this.account = account;
+    }
+
+    public void setSacannerCode(String sacannerCode) {
+        this.sacannerCode = sacannerCode;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 }

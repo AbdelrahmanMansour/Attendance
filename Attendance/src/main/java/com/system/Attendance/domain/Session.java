@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,6 +19,30 @@ public class Session implements Serializable {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
-    @ManyToMany(mappedBy = "sessionList")
-    private List<Member> memberList;
+    @ManyToMany(mappedBy = "sessionList", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Member> memberList = new ArrayList<Member>();
+
+    public Session() {
+    }
+
+    public Session(LocalDateTime startTime, LocalDateTime endTime) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public void setMemberList(List<Member> memberList) {
+        this.memberList = memberList;
+    }
+
+    public void addMember(Member member) {
+        this.memberList.add(member);
+    }
 }
