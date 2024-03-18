@@ -1,13 +1,13 @@
 package com.system.Attendance.service;
 
 import com.system.Attendance.domain.Member;
-import com.system.Attendance.domain.Scanners;
+import com.system.Attendance.domain.Scanner;
 import com.system.Attendance.service.contract.MemberPayload;
 import com.system.Attendance.service.contract.ScannerPayload;
 import edu.miu.common.service.BaseReadWriteService;
 
 import java.util.List;
 
-public interface ScannerService extends BaseReadWriteService<ScannerPayload, Scanners, Integer> {
+public interface ScannerService extends BaseReadWriteService<ScannerPayload, Scanner, Integer> {
 
 }

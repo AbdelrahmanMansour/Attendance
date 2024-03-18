@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,8 +26,35 @@ public class Account implements Serializable {
     @ManyToOne
     private Scanner scanner;
 
-    @ManyToMany(mappedBy = "accounts")
-    private Role role;
+    @ManyToMany(mappedBy = "accounts", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Role> roles = new ArrayList<>();
+    public Account() {
+    }
 
+    public Account(String name, String description, AccountType type) {
+        this.name = name;
+        this.description = description;
+        this.type = type;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setType(AccountType type) {
+        this.type = type;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
 
 }

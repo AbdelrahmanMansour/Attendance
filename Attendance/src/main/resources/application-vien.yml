@@ -1,0 +1,42 @@
+common:
+  security:
+    enabled: false
+  feign-oauth:
+    enabled: false
+  mvc:
+    enabled: false
+server:
+  ssl:
+    enabled: false
+  servlet:
+    context-path: /badge-system
+spring:
+  security:
+    user:
+      name: user
+      password: 123
+  application:
+    name: Attendance
+  datasource:
+    url: jdbc:mysql://localhost:3306/cs544-labs
+    username: root
+    password: 123456
+    driverClassName: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximumPoolSize: 10
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+logging:
+  level:
+    root: INFO
+  file:
+    name: /CS544/Logging/${spring.application.name}/logs

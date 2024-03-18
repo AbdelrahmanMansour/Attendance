@@ -12,7 +12,6 @@ import java.io.Serializable;
 @Entity
 @Setter
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
 public class Location implements Serializable {
 
@@ -30,4 +29,25 @@ public class Location implements Serializable {
     @Column(name = "Location_Type", nullable = false)
     @Enumerated(EnumType.STRING)
     private LocationType locationType;
+
+    public Location() {
+    }
+
+    public Location(String name, String description, LocationType locationType) {
+        this.name = name;
+        this.description = description;
+        this.locationType = locationType;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setLocationType(LocationType locationType) {
+        this.locationType = locationType;
+    }
 }
