@@ -17,7 +17,7 @@ public class Role implements Serializable {
 
     private String name;
 
-    private String desciption;
+    private String description;
 
     @ManyToMany(mappedBy = "roles")
     private List<Member> memberList;
@@ -27,4 +27,5 @@ public class Role implements Serializable {
             joinColumns = {@JoinColumn(name = "role_id")},
             inverseJoinColumns = {@JoinColumn(name = "account_id")})
     private List<Account> accounts = new ArrayList<Account>();
+
 }

@@ -7,19 +7,20 @@ import java.io.Serializable;
 
 @Entity
 @Data
-public class Scanners implements Serializable {
+public class Scanner implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String sacannerCode;
+    private String scannerCode;
+
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
-    private Account account;
+    @JoinColumn(name = "session_id")
+    private Session  session;
 
 }
