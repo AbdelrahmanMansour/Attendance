@@ -1,0 +1,6 @@
+Attendance/target/
+Attendance/target/classes/com/system/Attendance/service/mapper/ScannerPayloadToScannerMapper.class
+*.class
+*.xml
+*.xml
+Attendance/target/surefire-reports/TEST-com.system.Attendance.AttendanceApplicationTests.xml
