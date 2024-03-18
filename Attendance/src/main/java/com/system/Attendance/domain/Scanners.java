@@ -13,7 +13,7 @@ public class Scanners implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String sacannerCode;
+    private String scannerCode;
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
