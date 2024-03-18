@@ -20,4 +20,8 @@ public class Session implements Serializable {
 
     @ManyToMany(mappedBy = "sessionList")
     private List<Member> memberList;
+
+    @ManyToOne
+    private Schedule schedule;
+
 }

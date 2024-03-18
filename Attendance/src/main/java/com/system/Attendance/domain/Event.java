@@ -16,18 +16,19 @@ public class Event implements Serializable {
 
     private String name;
 
-    private String desciption;
-
-    @ManyToOne
-    private Schedule schedule;
+    private String description;
 
     @ManyToOne
     private Location location;
 
+    @ManyToOne
+    private Account account;
+
+    @OneToOne
+    private Schedule schedule;
+
     @ManyToMany(mappedBy = "eventList")
     private List<Member> members;
 
-    @OneToOne
-    private Account account;
-
+  
 }
