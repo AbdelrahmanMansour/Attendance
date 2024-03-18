@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,7 +20,24 @@ public class Schedule implements Serializable {
 
     @OneToMany
     @JoinColumn(name = "schedule_id")
-    private List<Session> sessions;
+    private List<Session> sessions = new ArrayList<Session>();
+    public Schedule() {
+    }
 
+    public Schedule(LocalDate day) {
+        this.day = day;
+    }
+
+    public void setDay(LocalDate day) {
+        this.day = day;
+    }
+
+    public void setSessions(List<Session> sessions) {
+        this.sessions = sessions;
+    }
+
+    public void addSession(Session session) {
+        this.sessions.add(session);
+    }
 
 }
