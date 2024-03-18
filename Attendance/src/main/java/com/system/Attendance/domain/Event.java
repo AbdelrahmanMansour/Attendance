@@ -30,4 +30,5 @@ public class Event implements Serializable {
     @ManyToMany(mappedBy = "eventList")
     private List<Member> members;
 
+  
 }
