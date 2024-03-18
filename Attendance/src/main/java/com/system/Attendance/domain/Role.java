@@ -17,7 +17,7 @@ public class Role implements Serializable {
 
     private String name;
 
-    private String desciption;
+    private String description;
 
     @ManyToMany(mappedBy = "roles")
     private List<Member> memberList;
