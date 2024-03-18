@@ -32,7 +32,7 @@ public class GenerateData {
     @Autowired
     RoleRepository roleRepository;
     @Autowired
-    MemberRepository memberRepository;
+    MembersRepository memberRepository;
     @Autowired
     EventRepository eventRepository;
     @Autowired
