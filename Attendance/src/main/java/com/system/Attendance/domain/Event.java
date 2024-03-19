@@ -2,8 +2,7 @@ package com.system.Attendance.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -58,16 +57,10 @@ public class Event implements Serializable {
         this.location = location;
     }
 
-    public void setMembers(Set<Member> members) {
-        this.members = members;
-    }
 
     public void setAccount(Account account) {
         this.account = account;
     }
 
-    public void addMember(Member member) {
-        this.members.add(member);
-    }
-  
+
 }

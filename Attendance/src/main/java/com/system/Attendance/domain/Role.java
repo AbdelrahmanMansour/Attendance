@@ -36,20 +36,5 @@ public class Role implements Serializable {
         this.description = desciption;
     }
 
-    public void setMemberList(List<Member> memberList) {
-        this.memberList = memberList;
-    }
-
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
-    }
-
-    public void addAccount(Account account) {
-        this.accounts.add(account);
-    }
-
-    public void addMember(Member member) {
-        this.memberList.add(member);
-    }
 
 }
