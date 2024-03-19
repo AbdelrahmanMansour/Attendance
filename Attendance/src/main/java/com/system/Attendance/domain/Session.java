@@ -22,6 +22,10 @@ public class Session implements Serializable {
     @ManyToMany(mappedBy = "sessionList", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Member> memberList = new ArrayList<Member>();
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "scanner_id")
+    private Scanner scanner;
+
     public Session() {
     }
 

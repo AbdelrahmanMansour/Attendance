@@ -25,7 +25,7 @@ public class Event implements Serializable {
     @ManyToOne
     private Account account;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Schedule schedule;
 
     @ManyToMany(mappedBy = "eventList")

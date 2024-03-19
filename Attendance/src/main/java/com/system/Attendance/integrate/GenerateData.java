@@ -125,6 +125,12 @@ public class GenerateData {
         Schedule eatingSchedule = new Schedule(LocalDate.now());
         Schedule classSchedule = new Schedule(LocalDate.now());
         Schedule gymSchedule = new Schedule(LocalDate.now());
+        // set scheudle for event
+        eatingEvent.setSchedule(eatingSchedule);
+        classEvent.setSchedule(classSchedule);
+        gymEvent.setSchedule(gymSchedule);
+        eventRepository.saveAll(Arrays.asList(eatingEvent, classEvent, gymEvent));
+
         listSchedule.add(eatingSchedule);
         listSchedule.add(classSchedule);
         listSchedule.add(gymSchedule);
@@ -137,13 +143,16 @@ public class GenerateData {
                 listSchedule.get(i).addSession(session);
                 for (int mem = 0; mem < maxMember; mem ++) {
                     if (i == 0) { // eating schedule for every body
+                        session.setScanner(scannerEating);
                         session.addMember(listMember.get(mem));
                         listMember.get(mem).addSession(session);
                     } else if ((mem % 2 ==  0 || mem % 5 == 0) && i == 1) // class schedule for student and faculty
                     {
+                        session.setScanner(scannerAttendance1);
                         session.addMember(listMember.get(mem));
                         listMember.get(mem).addSession(session);
                     } else if (mem % 2 == 0 && i == 2) { // gym schedule for student
+                        session.setScanner(scannerVirtualDolar);
                         session.addMember(listMember.get(mem));
                         listMember.get(mem).addSession(session);
                     }

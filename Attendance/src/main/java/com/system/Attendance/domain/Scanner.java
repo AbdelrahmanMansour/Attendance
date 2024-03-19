@@ -20,10 +20,6 @@ public class Scanner implements Serializable {
     private Location location;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "session_id")
-    private Session  session;
-
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "account_id")
     private Account account;
 
