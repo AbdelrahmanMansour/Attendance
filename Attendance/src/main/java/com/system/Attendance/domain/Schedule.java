@@ -11,11 +11,13 @@ import java.util.List;
 @Entity
 @Data
 public class Schedule implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Transient
     private LocalDate day;
 
     @OneToMany

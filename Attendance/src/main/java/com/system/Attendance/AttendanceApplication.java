@@ -10,7 +10,7 @@ public class AttendanceApplication implements CommandLineRunner {
 //	@Autowired
 //	MyGenerateData generateData;
 //	@Autowired
-//	MemberRepository memberRepository;
+//MemberRepository memberRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AttendanceApplication.class, args);
@@ -18,8 +18,13 @@ public class AttendanceApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		//generateData.generateData();
-		//memberRepository.getMemberData(5).forEach(System.out::println);
+//		generateData.generateData();
+//		//memberRepository.getMemberData(5).forEach(System.out::println);
+//		System.out.println("============  value ");
+//		List<Object[]> result = memberRepository.getMemberAttendanceOverAccount(5);
+//		//System.out.println(memberRepository.getMemberAttendanceOverAccount(5));
+//		System.out.println(result.get(0)[0] + "      " + result.get(0)[1]);
+
 	}
 
 }
