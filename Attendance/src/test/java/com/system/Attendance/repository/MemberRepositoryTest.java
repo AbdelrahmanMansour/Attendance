@@ -1,6 +1,9 @@
 package com.system.Attendance.repository;
 
-import jakarta.transaction.Transactional;
+import com.system.Attendance.domain.Account;
+import com.system.Attendance.domain.Location;
+import com.system.Attendance.enums.AccountType;
+import com.system.Attendance.enums.LocationType;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,16 +11,16 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@Transactional
 class MemberRepositoryTest {
 
     @Autowired
     private TestEntityManager entityManager;
 
-//    @Autowired
-//    private MemberRepository memberRepository;
+    @Autowired
+    private MemberRepository memberRepository;
 
     @Test
     void deleteInBatch() {
@@ -26,17 +29,22 @@ class MemberRepositoryTest {
     @Test
     void getMemberAttendanceOverAccount() {
 
+
+
 //        MyEntity entity = new MyEntity("myname");
 //
-//        entityManager.persist(entity);
+//        MyEntity result = entityManager.persist(entity);
 //        entityManager.flush();
+//
+//        assertThat(entity)
+//                .isEqualTo(result);
 
-//        Location dainingHall = new Location("Agiro", "the place to take food", LocationType.DINING);
-//        entityManager.persist(dainingHall);
-//
-//        Account eatingAccount = new Account("eating", "Account for eat", AccountType.EATING);
-//        entityManager.persist(eatingAccount);
-//
+        Location dainingHall = new Location("Agiro", "the place to take food", LocationType.DINING);
+        entityManager.persist(dainingHall);
+
+        Account eatingAccount = new Account("eating", "Account for eat", AccountType.EATING);
+        entityManager.persist(eatingAccount);
+
 //        Scanner scannerEating = new Scanner("11111111", dainingHall, eatingAccount);
 //        entityManager.persist(scannerEating);
 //
@@ -50,12 +58,14 @@ class MemberRepositoryTest {
 //        event.setAccount(eatingAccount);
 //        event.setLocation(dainingHall);
 //
+//        Schedule schedule = new Schedule(LocalDate.now());
+//        entityManager.persist(schedule);
+//
 //        Event savedEvent = entityManager.persist(event);
 //
-//        Schedule schedule = new Schedule(LocalDate.now());
 //        Session session = new Session(LocalDateTime.now(),LocalDateTime.now());
 //        savedEvent.setSchedule(schedule);
-//        entityManager.persist(schedule);
+//
 //        schedule.addSession(session);
 //        session.addMember(member);
 //        member.addSession(session);
@@ -65,10 +75,10 @@ class MemberRepositoryTest {
 //        member.setRoles(Arrays.asList(student));
 //        student.addMember(member);
 //        Member saved = entityManager.persist(member);
-//        entityManager.flush();
-//        List<Member> memberList = memberRepository.findAll();
-//        assertThat(1)
-//                .isEqualTo(1);
+        entityManager.flush();
+      //  List<Member> memberList = memberRepository.findAll();
+        assertThat(1)
+                .isEqualTo(1);
 
 
 

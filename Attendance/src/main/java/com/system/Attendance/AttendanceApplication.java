@@ -4,11 +4,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication//(scanBasePackages = "edu.miu.common, com.system.Attendance")
+@SpringBootApplication(scanBasePackages = "edu.miu.common, com.system.Attendance")
 public class AttendanceApplication implements CommandLineRunner {
 
 //	@Autowired
-   // MyGenerateData generateData;
+//	MyGenerateData generateData;
 //	@Autowired
 //	MemberRepository memberRepository;
 
@@ -18,7 +18,7 @@ public class AttendanceApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-	//	generateData.generateData();
+		//generateData.generateData();
 		//memberRepository.getMemberData(5).forEach(System.out::println);
 	}
 
