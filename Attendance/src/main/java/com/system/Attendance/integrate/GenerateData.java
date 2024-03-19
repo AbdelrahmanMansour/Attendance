@@ -129,7 +129,13 @@ public class GenerateData {
         memberRepository.saveAll(listMember);
 
         // create session
-
+        Schedule eatingSchedule = new Schedule("from:MondayTo:Friday");
+        Schedule classSchedule = new Schedule("Monday-Wednesday-Friday");
+        Schedule gymSchedule = new Schedule("Sunday");
+        listSchedule.add(eatingSchedule);
+        listSchedule.add(classSchedule);
+        listSchedule.add(gymSchedule);
+        scheduleRepository.saveAll(listSchedule);
 
         for (int i = 0 ; i < listSchedule.size(); i ++) {
             // crate sesssion

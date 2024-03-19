@@ -28,6 +28,9 @@ public class Schedule implements Serializable {
         this.day = day;
     }
 
+    public void setDay(String day) {
+        this.day = day;
+    }
 
     public void setSessions(List<Session> sessions) {
         this.sessions = sessions;
