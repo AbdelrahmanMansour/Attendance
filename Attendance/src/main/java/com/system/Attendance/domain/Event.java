@@ -25,7 +25,7 @@ public class Event implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Account account;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Schedule schedule;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
