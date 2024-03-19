@@ -20,9 +20,9 @@ public class Role implements Serializable {
     private String description;
 
     @ManyToMany(mappedBy = "roles")
-    private List<Member> memberList = new ArrayList<Member>();
+    private List<Member> memberList = new ArrayList<>();
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToMany
     @JoinTable( name = "Account_Role",
             joinColumns = {@JoinColumn(name = "role_id")},
             inverseJoinColumns = {@JoinColumn(name = "account_id")})
@@ -31,17 +31,17 @@ public class Role implements Serializable {
     public Role() {
     }
 
-    public Role(String name, String description) {
+    public Role(String name, String desciption) {
         this.name = name;
-        this.description = description;
+        this.description = desciption;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setDesciption(String description) {
-        this.description = description;
+    public void setDesciption(String desciption) {
+        this.description = desciption;
     }
 
     public void setMemberList(List<Member> memberList) {
@@ -59,5 +59,4 @@ public class Role implements Serializable {
     public void addMember(Member member) {
         this.memberList.add(member);
     }
-
 }
