@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 import static com.system.Attendance.DTO.SessionMapper.MAPPER;
 
 @Service
-public class SessionServiceImpl  {
+public class SessionServiceImpl  implements SessionService{
 
     @Autowired
     EventRepository eventRepository;
@@ -29,6 +29,7 @@ public class SessionServiceImpl  {
     @Autowired
     ModellMapper modellMapper;
 
+    @Override
     public void addSession(Long eventId, List<SessionPayload> sessionPayload) {
         Optional<Event> event = eventRepository.findById(eventId);
         if(event.isPresent()){
@@ -41,15 +42,18 @@ public class SessionServiceImpl  {
         }
         eventRepository.save(event.get());
     }
+    @Override
     public List<Session> getSession(Long eventId){
         return eventRepository.findById(eventId).get().getSchedule().getSessions();
     }
+    @Override
     public void deleteSession(Long eventId, Long sessionId){
         Optional<Event> event = eventRepository.findById(eventId);
         Optional<Session> x = event.get().getSchedule().getSessions()
                 .stream().filter(s -> s.getId().equals(sessionId)).findFirst();
         sessionRepository.delete(x.get());
     }
+    @Override
     public void updateSession(Long eventId, SessionPayload sessionPayload) {
         Optional<Event> optionalEvent = eventRepository.findById(eventId);
         if(optionalEvent.isPresent()){
