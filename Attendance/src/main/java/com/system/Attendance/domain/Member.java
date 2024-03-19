@@ -31,7 +31,7 @@ public class Member implements Serializable {
 
 
 
-	@ManyToMany(cascade = CascadeType.MERGE)
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "event_member",
 			joinColumns = {@JoinColumn(name = "member_id")},
 			inverseJoinColumns = {@JoinColumn(name = "event_id")})

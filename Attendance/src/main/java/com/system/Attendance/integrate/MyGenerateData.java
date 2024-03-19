@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-public class GenerateData {
+public class MyGenerateData {
     private List<Member> listMember = new ArrayList<>();
     private List<Session> listSession = new ArrayList<>();
 
