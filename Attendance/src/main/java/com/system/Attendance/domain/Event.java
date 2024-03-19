@@ -26,34 +26,28 @@ public class Event implements Serializable {
     @ManyToOne
     private Location location;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Account account;
 
-    @OneToOne(cascade = CascadeType.ALL)
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Schedule schedule;
 
-    @ManyToMany(mappedBy = "eventList")
-    private Set<Member> members = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "event_member",
+            joinColumns = {@JoinColumn(name = "event_id")},
+            inverseJoinColumns = {@JoinColumn(name = "member_id")})
+    private List<Member> memberList = new ArrayList<Member>();
 
     public Event() {
     }
 
-    public Event(String name, String description) {
+    public Event(String name, String description, Schedule schedule) {
         this.name = name;
         this.description = description;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDesciption(String description) {
-        this.description = description;
-    }
-
-    public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
     }
+
 
     public void setLocation(Location location) {
         this.location = location;

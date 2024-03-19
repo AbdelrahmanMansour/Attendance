@@ -17,16 +17,12 @@ public class Location implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "LocationId")
     private Integer locationid;
 
-    @Column(name = "Name", nullable = false)
     private String name;
 
-    @Column(name = "Description", nullable = false)
     private String description;
 
-    @Column(name = "Location_Type", nullable = false)
     @Enumerated(EnumType.STRING)
     private LocationType locationType;
 
@@ -39,15 +35,4 @@ public class Location implements Serializable {
         this.locationType = locationType;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setLocationType(LocationType locationType) {
-        this.locationType = locationType;
-    }
 }

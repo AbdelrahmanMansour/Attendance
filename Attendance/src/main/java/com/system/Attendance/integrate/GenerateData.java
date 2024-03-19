@@ -32,7 +32,7 @@ public class GenerateData {
     @Autowired
     RoleRepository roleRepository;
     @Autowired
-    MemberRepository memberRepository;
+    MembersRepository memberRepository;
     @Autowired
     EventRepository eventRepository;
     @Autowired
@@ -59,10 +59,10 @@ public class GenerateData {
         accountRepository.saveAll(Arrays.asList(eatingAccount, attendenceAccount, virtualDolarAccout));
 
         // create Scanner
-        Scanner scannerEating = new Scanner("11111111", dainingHall, eatingAccount);
-        Scanner scannerAttendance1 = new Scanner("22222222", library, attendenceAccount);
-        Scanner scannerAttendance2 = new Scanner("33333333", verillHall, attendenceAccount);
-        Scanner scannerVirtualDolar = new Scanner("44444444", guy, virtualDolarAccout);
+        Scanner scannerEating = new Scanner( dainingHall);
+        Scanner scannerAttendance1 = new Scanner( library);
+        Scanner scannerAttendance2 = new Scanner( verillHall);
+        Scanner scannerVirtualDolar = new Scanner(guy);
 
         scannerRepository.saveAll(Arrays.asList(scannerEating, scannerAttendance1, scannerAttendance2, scannerVirtualDolar));
 
@@ -73,24 +73,31 @@ public class GenerateData {
 
         roleRepository.saveAll(Arrays.asList(student, faculty, guess));
 
+        Schedule eatingSchedule = new Schedule("satarday");
+        Schedule classSchedule = new Schedule("Monday");
+        Schedule gymSchedule = new Schedule("Monday");
+        listSchedule.add(eatingSchedule);
+        listSchedule.add(classSchedule);
+        listSchedule.add(gymSchedule);
+        scheduleRepository.saveAll(listSchedule);
         // create event
-        Event eatingEvent = new Event("eating", "event for eating");
-        Event classEvent = new Event("class event", "event for class ");
-        Event gymEvent = new Event("gym event", "event for gym");
+        Event eatingEvent = new Event("eating", "event for eating", eatingSchedule);
+        Event classEvent = new Event("class event", "event for class ", classSchedule);
+        Event gymEvent = new Event("gym event", "event for gym", gymSchedule);
 
         eventRepository.saveAll(Arrays.asList(eatingEvent, classEvent, gymEvent));
 
         // add accout role
-        student.setAccounts(Arrays.asList(attendenceAccount, eatingAccount));
+     //   student.setAccounts(Arrays.asList(attendenceAccount, eatingAccount));
         attendenceAccount.addRole(student);
         eatingAccount.addRole(student);
 
-        faculty.setAccounts(Arrays.asList(attendenceAccount, eatingAccount, virtualDolarAccout));
+       // faculty.setAccounts(Arrays.asList(attendenceAccount, eatingAccount, virtualDolarAccout));
         attendenceAccount.addRole(faculty);
         eatingAccount.addRole(faculty);
         virtualDolarAccout.addRole(faculty);
 
-        guess.setAccounts(Arrays.asList(virtualDolarAccout));
+        //guess.setAccounts(Arrays.asList(virtualDolarAccout));
         virtualDolarAccout.addRole(guess);
 
         // Create member
@@ -99,23 +106,23 @@ public class GenerateData {
             // student
             if (i % 2 == 0) {
                 member.setRoles(Arrays.asList(student));
-                student.addMember(member);
-                member.setEventList(Arrays.asList(eatingEvent, classEvent));
-                eatingEvent.addMember(member);
-                classEvent.addMember(member);
+               // student.addMember(member);
+//                member.setEventList(Arrays.asList(eatingEvent, classEvent));
+//                eatingEvent.addMember(member);
+//                classEvent.addMember(member);
             } else if (i % 5 == 0) {
                 // faculty
                 member.setRoles(Arrays.asList(faculty));
-                faculty.addMember(member);
-                member.setEventList(Arrays.asList(eatingEvent, classEvent));
-                eatingEvent.addMember(member);
-                classEvent.addMember(member);
+              //  faculty.addMember(member);
+//                member.setEventList(Arrays.asList(eatingEvent, classEvent));
+//                eatingEvent.addMember(member);
+//                classEvent.addMember(member);
             } else {
                 // guess
                 member.setRoles(Arrays.asList(guess));
-                guess.addMember(member);
-                member.setEventList(Arrays.asList(eatingEvent));
-                eatingEvent.addMember(member);
+               // guess.addMember(member);
+//                member.setEventList(Arrays.asList(eatingEvent));
+//                eatingEvent.addMember(member);
             }
             listMember.add(member);
         }
@@ -133,19 +140,19 @@ public class GenerateData {
         for (int i = 0 ; i < listSchedule.size(); i ++) {
             // crate sesssion
             for(int se = 0 ; se < sessionPerEvent; se ++) {
-                Session session = new Session(LocalDateTime.now(), LocalDateTime.now());
+                Session session = new Session(LocalDateTime.now().toString(), LocalDateTime.now().toString());
                 listSchedule.get(i).addSession(session);
                 for (int mem = 0; mem < maxMember; mem ++) {
                     if (i == 0) { // eating schedule for every body
                         session.addMember(listMember.get(mem));
-                        listMember.get(mem).addSession(session);
+                       // listMember.get(mem).addSession(session);
                     } else if ((mem % 2 ==  0 || mem % 5 == 0) && i == 1) // class schedule for student and faculty
                     {
                         session.addMember(listMember.get(mem));
-                        listMember.get(mem).addSession(session);
+                        //listMember.get(mem).addSession(session);
                     } else if (mem % 2 == 0 && i == 2) { // gym schedule for student
                         session.addMember(listMember.get(mem));
-                        listMember.get(mem).addSession(session);
+                       // listMember.get(mem).addSession(session);
                     }
                 }
                 listSession.add(session);
