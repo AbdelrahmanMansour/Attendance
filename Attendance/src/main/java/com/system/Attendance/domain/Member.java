@@ -34,9 +34,13 @@ public class Member implements Serializable {
 			inverseJoinColumns = {@JoinColumn(name = "role_id")})
 	private List<Role> roles = new ArrayList<Role>();
 
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "session_member",
+			joinColumns = {@JoinColumn(name = "member_id")},
+			inverseJoinColumns = {@JoinColumn(name = "session_id")})
+	private List<Session> sessions = new ArrayList<>();
 	public Member() {
 	}
-
 	public Member(String name, String firstName, String lastName, String barCode, Double balance, String email) {
 		this.name = name;
 		this.firstName = firstName;

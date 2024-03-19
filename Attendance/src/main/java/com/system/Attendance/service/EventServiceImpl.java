@@ -29,9 +29,9 @@ public class EventServiceImpl extends BaseReadWriteServiceImpl<EventPayload, Eve
             throw new EntityNotFoundException("No Event With ID: " + eventId);
         }
         Event event = eventResponse.get();
-        Set<Member> eventMembers = event.getMembers();
+        List<Member> eventMembers = event.getMemberList();
         eventMembers.addAll(members);
-        event.setMembers(eventMembers);
+        event.setMemberList(eventMembers);
         event = eventRepository.save(event);
         return eventToEventPayloadMapper.map(event);
     }

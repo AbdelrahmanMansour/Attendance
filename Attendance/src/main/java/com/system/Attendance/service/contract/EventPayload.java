@@ -26,7 +26,5 @@ public class EventPayload implements Serializable {
 
     private Location location;
 
-    private Set<MemberPayload> members;
-
     private Account account;
 }

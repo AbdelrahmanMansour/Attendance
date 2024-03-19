@@ -14,15 +14,10 @@ public class Session implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String startTime;
     private String endTime;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "session_member",
-            joinColumns = {@JoinColumn(name = "session_id")},
-            inverseJoinColumns = {@JoinColumn(name = "member_id")})
+    @ManyToMany(mappedBy = "sessions")
     private List<Member> memberList = new ArrayList<Member>();
-
     public Session() {
     }
     public Session(String startTime, String endTime) {

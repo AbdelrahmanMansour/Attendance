@@ -81,9 +81,9 @@ public class GenerateData {
         listSchedule.add(gymSchedule);
         scheduleRepository.saveAll(listSchedule);
         // create event
-        Event eatingEvent = new Event("eating", "event for eating", eatingSchedule);
-        Event classEvent = new Event("class event", "event for class ", classSchedule);
-        Event gymEvent = new Event("gym event", "event for gym", gymSchedule);
+        Event eatingEvent = new Event("eating", "event for eating", eatingSchedule, eatingAccount);
+        Event classEvent = new Event("class event", "event for class ", classSchedule, attendenceAccount);
+        Event gymEvent = new Event("gym event", "event for gym", gymSchedule, eatingAccount);
 
         eventRepository.saveAll(Arrays.asList(eatingEvent, classEvent, gymEvent));
 
@@ -129,9 +129,7 @@ public class GenerateData {
         memberRepository.saveAll(listMember);
 
         // create session
-        Schedule eatingSchedule = new Schedule("from:MondayTo:Friday");
-        Schedule classSchedule = new Schedule("Monday-Wednesday-Friday");
-        Schedule gymSchedule = new Schedule("Sunday");
+
         listSchedule.add(eatingSchedule);
         listSchedule.add(classSchedule);
         listSchedule.add(gymSchedule);
