@@ -12,9 +12,9 @@ server:
     context-path: /badge-system
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/NEW
+    url: jdbc:postgresql://localhost:5432/ea_db2
     username: postgres
-    password: A123@123h
+    password: 1234567
     driver-class-name: org.postgresql.Driver
     hikari:
       maximumPoolSize: 10

@@ -9,8 +9,9 @@ public class MemberPayload implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Integer memberId;
+	private Integer Id;
 	
 	private String name;
+	private String email;
 
 }

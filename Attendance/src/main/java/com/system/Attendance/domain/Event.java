@@ -12,7 +12,8 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Data
+@Setter
+@Getter
 public class Event implements Serializable {
 
     @Id
