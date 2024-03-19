@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,25 +15,18 @@ public class Session implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
-
-    @ManyToMany(mappedBy = "sessionList", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private String startTime;
+    private String endTime;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "session_member",
+            joinColumns = {@JoinColumn(name = "session_id")},
+            inverseJoinColumns = {@JoinColumn(name = "member_id")})
     private List<Member> memberList = new ArrayList<Member>();
 
     public Session() {
     }
-
-    public Session(LocalDateTime startTime, LocalDateTime endTime) {
+    public Session(String startTime, String endTime) {
         this.startTime = startTime;
-        this.endTime = endTime;
-    }
-
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
