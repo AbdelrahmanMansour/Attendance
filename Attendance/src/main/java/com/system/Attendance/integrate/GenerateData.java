@@ -122,9 +122,9 @@ public class GenerateData {
         memberRepository.saveAll(listMember);
 
         // create session
-        Schedule eatingSchedule = new Schedule(LocalDate.now());
-        Schedule classSchedule = new Schedule(LocalDate.now());
-        Schedule gymSchedule = new Schedule(LocalDate.now());
+        Schedule eatingSchedule = new Schedule("from:MondayTo:Friday");
+        Schedule classSchedule = new Schedule("Monday-Wednesday-Friday");
+        Schedule gymSchedule = new Schedule("Sunday");
         listSchedule.add(eatingSchedule);
         listSchedule.add(classSchedule);
         listSchedule.add(gymSchedule);

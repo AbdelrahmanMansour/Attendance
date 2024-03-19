@@ -2,10 +2,14 @@ package com.system.Attendance.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -25,11 +29,11 @@ public class Event implements Serializable {
     @ManyToOne
     private Account account;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Schedule schedule;
 
     @ManyToMany(mappedBy = "eventList")
-    private List<Member> members = new ArrayList<Member>();
+    private Set<Member> members = new HashSet<>();
 
     public Event() {
     }
@@ -55,7 +59,7 @@ public class Event implements Serializable {
         this.location = location;
     }
 
-    public void setMembers(List<Member> members) {
+    public void setMembers(Set<Member> members) {
         this.members = members;
     }
 

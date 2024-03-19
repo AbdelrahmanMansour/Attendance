@@ -16,7 +16,7 @@ public class Schedule implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private LocalDate day;
+    private String day;
 
     @OneToMany
     @JoinColumn(name = "schedule_id")
@@ -24,11 +24,11 @@ public class Schedule implements Serializable {
     public Schedule() {
     }
 
-    public Schedule(LocalDate day) {
+    public Schedule(String day) {
         this.day = day;
     }
 
-    public void setDay(LocalDate day) {
+    public void setDay(String day) {
         this.day = day;
     }
 
