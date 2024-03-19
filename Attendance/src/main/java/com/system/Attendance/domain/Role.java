@@ -20,9 +20,9 @@ public class Role implements Serializable {
     private String description;
 
     @ManyToMany(mappedBy = "roles")
-    private List<Member> memberList = new ArrayList<>();
+    private List<Member> memberList = new ArrayList<Member>();
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable( name = "Account_Role",
             joinColumns = {@JoinColumn(name = "role_id")},
             inverseJoinColumns = {@JoinColumn(name = "account_id")})
