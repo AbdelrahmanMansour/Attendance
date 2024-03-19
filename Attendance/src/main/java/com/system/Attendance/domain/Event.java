@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -19,6 +20,9 @@ public class Event implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private LocalDateTime startDate;
+
+    private LocalDateTime endDate;
     private String name;
 
     private String description;
@@ -42,10 +46,11 @@ public class Event implements Serializable {
     public Event() {
     }
 
-    public Event(String name, String description, Schedule schedule) {
+    public Event(String name, String description, Schedule schedule, Account account) {
         this.name = name;
         this.description = description;
         this.schedule = schedule;
+        this.account = account;
     }
 
 
