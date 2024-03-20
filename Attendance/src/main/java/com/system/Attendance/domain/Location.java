@@ -12,22 +12,27 @@ import java.io.Serializable;
 @Entity
 @Setter
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
 public class Location implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "LocationId")
     private Integer locationid;
 
-    @Column(name = "Name", nullable = false)
     private String name;
 
-    @Column(name = "Description", nullable = false)
     private String description;
 
-    @Column(name = "Location_Type", nullable = false)
     @Enumerated(EnumType.STRING)
     private LocationType locationType;
+
+    public Location() {
+    }
+
+    public Location(String name, String description, LocationType locationType) {
+        this.name = name;
+        this.description = description;
+        this.locationType = locationType;
+    }
+
 }

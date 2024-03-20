@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,14 +14,23 @@ public class Session implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String startTime;
+    private String endTime;
+    @ManyToMany(mappedBy = "sessions")
+    private List<Member> memberList = new ArrayList<Member>();
+    public Session() {
+    }
+    public Session(String startTime, String endTime) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
 
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    public void setMemberList(List<Member> memberList) {
+        this.memberList = memberList;
+    }
 
-    @ManyToMany(mappedBy = "sessionList")
-    private List<Member> memberList;
-
-    @ManyToOne
-    private Schedule schedule;
+    public void addMember(Member member) {
+        this.memberList.add(member);
+    }
 
 }

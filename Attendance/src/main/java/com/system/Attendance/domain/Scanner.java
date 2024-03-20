@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Data
@@ -13,14 +14,18 @@ public class Scanner implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String scannerCode;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @ManyToOne
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "session_id")
-    private Session  session;
+    private List<Session> session;
+
+    public Scanner() {
+    }
+    public Scanner(Location location) {
+        this.location = location;
+    }
 
 }
