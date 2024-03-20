@@ -17,11 +17,6 @@ spring:
       password: 123
   application:
     name: Attendance
-#  datasource:
-#    url: jdbc:h2:mem:testdb
-#    username: SA
-#    password: password
-#    driver-class-name: org.h2.Driver
   datasource:
     url: jdbc:postgresql://localhost:5432/NEW
     username: postgres

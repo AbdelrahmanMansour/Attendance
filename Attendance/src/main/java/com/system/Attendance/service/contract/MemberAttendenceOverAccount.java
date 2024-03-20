@@ -13,4 +13,9 @@ public class MemberAttendenceOverAccount implements Serializable {
 
     private AccountType accountType;
     private long count;
+
+    public MemberAttendenceOverAccount(AccountType accountType, long count) {
+        this.accountType = accountType;
+        this.count = count;
+    }
 }

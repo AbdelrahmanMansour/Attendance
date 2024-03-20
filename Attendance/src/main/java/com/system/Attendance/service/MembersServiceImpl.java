@@ -24,11 +24,9 @@ public class MembersServiceImpl extends BaseReadWriteServiceImpl<MembersPayload,
         List<Object[]> list = memberRepository.getMemberAttendanceOverAccount(memberId);
         List<MemberAttendenceOverAccount> result = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
-            MemberAttendenceOverAccount member = new MemberAttendenceOverAccount();
             AccountType accountType = (AccountType) list.get(i)[0];
             long count = (long) list.get(i)[1];
-            member.setAccountType(accountType);
-            member.setCount(count);
+            MemberAttendenceOverAccount member = new MemberAttendenceOverAccount(accountType, count);
             result.add(member);
         }
         return result;
