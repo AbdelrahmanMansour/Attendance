@@ -7,8 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-
-public interface MemberRepository extends BaseRepository<Member, Integer>{
+public interface MembersRepository extends BaseRepository<Member, Integer> {
 
 //    @Query(value = "select ac.type , count(mb.id) from Member mb left join session_member ssmb on mb.id = ssmb.member_id " +
 //            "left join Session ss on ssmb.session_id = ss.id " +
@@ -22,6 +21,8 @@ public interface MemberRepository extends BaseRepository<Member, Integer>{
 //            "group by ac.type ", nativeQuery = true)
 //    List<Object[]> getMemberAttendanceOverAccount(long memberId);
 
-    @Query("SELECT a.type, COUNT(DISTINCT s) FROM Session s JOIN s.memberList m JOIN m.roles r JOIN r.accounts a WHERE m.id = :memberId group by a.type")
+    //@Query("SELECT a.type, COUNT(DISTINCT s) FROM Session s JOIN s.memberList m JOIN m.roles r JOIN r.accounts a WHERE m.id = :memberId group by a.type")
+
+    @Query("select a.type, count(DISTINCT s) from Account a, Session s join s.memberList m JOIN m.roles r WHERE m.id = :memberId and r in elements(a.roles) GROUP BY a.type") // and a.scanner.id = s.scanner.id
     List<Object[]> getMemberAttendanceOverAccount( @Param("memberId") long memberId);
 }

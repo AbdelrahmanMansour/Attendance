@@ -16,7 +16,6 @@ public class Member implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
 	private String name;
 
 	private String firstName;
@@ -30,19 +29,12 @@ public class Member implements Serializable {
 	private String email;
 
 
-
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "event_member",
 			joinColumns = {@JoinColumn(name = "member_id")},
 			inverseJoinColumns = {@JoinColumn(name = "event_id")})
 	private List<Event> eventList = new ArrayList<Event>();
 
-
-	@ManyToMany(cascade = CascadeType.MERGE)
-	@JoinTable(name = "session_member",
-			joinColumns = {@JoinColumn(name = "member_id")},
-			inverseJoinColumns = {@JoinColumn(name = "session_id")})
-	private List<Session> sessionList = new ArrayList<Session>();
 
 	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinTable(name = "member_role",
@@ -52,7 +44,6 @@ public class Member implements Serializable {
 
 	public Member() {
 	}
-
 	public Member(String name, String firstName, String lastName, String barCode, Double balance, String email) {
 		this.name = name;
 		this.firstName = firstName;
@@ -62,47 +53,8 @@ public class Member implements Serializable {
 		this.email = email;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public void setBarCode(String barCode) {
-		this.barCode = barCode;
-	}
-
-	public void setBalance(Double balance) {
-		this.balance = balance;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public void setEventList(List<Event> eventList) {
-		this.eventList = eventList;
-	}
-
-	public void setSessionList(List<Session> sessionList) {
-		this.sessionList = sessionList;
-	}
-
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
 
-	public void addSession(Session session) {
-		this.sessionList.add(session);
-	}
-
-	public void addEvent(Event event) {
-		this.eventList.add(event);
-	}
 }

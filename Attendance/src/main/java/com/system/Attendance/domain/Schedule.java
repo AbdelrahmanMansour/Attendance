@@ -17,20 +17,20 @@ public class Schedule implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Transient
-    private LocalDate day;
 
-    @OneToMany
+    private String day;
+
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id")
     private List<Session> sessions = new ArrayList<Session>();
     public Schedule() {
     }
 
-    public Schedule(LocalDate day) {
+    public Schedule(String day) {
         this.day = day;
     }
 
-    public void setDay(LocalDate day) {
+    public void setDay(String day) {
         this.day = day;
     }
 

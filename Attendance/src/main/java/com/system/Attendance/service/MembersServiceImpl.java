@@ -1,11 +1,9 @@
 package com.system.Attendance.service;
-
-import com.system.Attendance.repository.MemberRepository;
-import com.system.Attendance.service.contract.MemberAttendenceOverAccount;
-import com.system.Attendance.service.contract.MemberPayload;
 import com.system.Attendance.domain.Member;
+import com.system.Attendance.repository.MembersRepository;
+import com.system.Attendance.service.contract.MemberAttendenceOverAccount;
+import com.system.Attendance.service.contract.MembersPayload;
 import edu.miu.common.service.BaseReadWriteServiceImpl;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class MemberServiceImpl extends BaseReadWriteServiceImpl<MemberPayload, Member, Integer> implements MemberService {
-
+public class MembersServiceImpl extends BaseReadWriteServiceImpl<MembersPayload, Member, Integer> implements MemberService {
     @Autowired
-    private MemberRepository memberRepository;
+    private MembersRepository memberRepository;
     @Override
     public List<MemberAttendenceOverAccount> getMemberAttendanceOverAccount(int memberId) {
         List<Object[]> list = memberRepository.getMemberAttendanceOverAccount(memberId);

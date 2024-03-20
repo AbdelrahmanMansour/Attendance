@@ -1,10 +1,9 @@
 package com.system.Attendance.controller;
 
-
 import com.system.Attendance.service.MemberService;
 import com.system.Attendance.service.contract.MemberAttendenceOverAccount;
-import com.system.Attendance.service.contract.MemberPayload;
 import com.system.Attendance.domain.Member;
+import com.system.Attendance.service.contract.MembersPayload;
 import edu.miu.common.controller.BaseReadWriteController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/members")
-public class MemberController extends BaseReadWriteController<MemberPayload, Member, Integer> {
+public class MembersController extends BaseReadWriteController<MembersPayload, Member, Integer> {
 
     @Autowired
     private MemberService memberService;

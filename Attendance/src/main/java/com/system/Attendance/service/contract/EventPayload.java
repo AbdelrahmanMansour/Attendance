@@ -8,7 +8,7 @@ import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 @Data
 public class EventPayload implements Serializable {
@@ -25,8 +25,6 @@ public class EventPayload implements Serializable {
     private Schedule schedule;
 
     private Location location;
-
-    private List<Member> members;
 
     private Account account;
 }

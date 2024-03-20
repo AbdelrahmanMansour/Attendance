@@ -23,10 +23,10 @@ public class Account implements Serializable {
     @Enumerated(EnumType.STRING)
     private AccountType type;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Scanner scanner;
 
-    @ManyToMany(mappedBy = "accounts", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToMany( cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
     private List<Role> roles = new ArrayList<>();
     public Account() {
     }
@@ -34,18 +34,6 @@ public class Account implements Serializable {
     public Account(String name, String description, AccountType type) {
         this.name = name;
         this.description = description;
-        this.type = type;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setType(AccountType type) {
         this.type = type;
     }
 

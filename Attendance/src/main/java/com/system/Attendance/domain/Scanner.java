@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Data
@@ -13,34 +14,15 @@ public class Scanner implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String scannerCode;
-
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "account_id")
-    private Account account;
 
     public Scanner() {
     }
-
-    public Scanner(String scannerCode, Location location, Account account) {
-        this.scannerCode = scannerCode;
-        this.location = location;
-        this.account = account;
-    }
-
-    public void setScannerCode(String scannerCode) {
-        this.scannerCode = scannerCode;
-    }
-
-    public void setLocation(Location location) {
+    public Scanner(Location location) {
         this.location = location;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
-    }
 }
