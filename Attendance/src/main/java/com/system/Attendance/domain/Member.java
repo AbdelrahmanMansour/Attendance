@@ -28,14 +28,6 @@ public class Member implements Serializable {
 
 	private String email;
 
-
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "event_member",
-			joinColumns = {@JoinColumn(name = "member_id")},
-			inverseJoinColumns = {@JoinColumn(name = "event_id")})
-	private List<Event> eventList = new ArrayList<Event>();
-
-
 	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinTable(name = "member_role",
 			joinColumns = {@JoinColumn(name = "member_id")},
