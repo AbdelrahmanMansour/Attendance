@@ -4,6 +4,7 @@ import com.system.Attendance.domain.Member;
 import com.system.Attendance.enums.AccountType;
 import com.system.Attendance.repository.MembersRepository;
 import com.system.Attendance.service.contract.MemberAttendenceOverAccount;
+import com.system.Attendance.repository.EventRepository;
 import com.system.Attendance.service.contract.MembersPayload;
 import edu.miu.common.service.BaseReadWriteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +17,23 @@ import java.util.List;
 public class MembersServiceImpl extends BaseReadWriteServiceImpl<MembersPayload, Member, Integer> implements MemberService {
     @Autowired
     private MembersRepository memberRepository;
+    @Autowired
+    EventRepository eventRepository;
     @Override
     public List<MemberAttendenceOverAccount> getMemberAttendanceOverAccount(int memberId) {
         List<Object[]> list = memberRepository.getMemberAttendanceOverAccount(memberId);
         List<MemberAttendenceOverAccount> result = new ArrayList<>();
-        for(int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             MemberAttendenceOverAccount member = new MemberAttendenceOverAccount();
             AccountType accountType = (AccountType) list.get(i)[0];
-            long count = (long)list.get(i)[1];
+            long count = (long) list.get(i)[1];
             member.setAccountType(accountType);
             member.setCount(count);
             result.add(member);
         }
         return result;
+    }
+    public int countAttendanceForEventByMember(Integer memberId, Long eventId) {
+        return eventRepository.countAttendanceForEventByMember(memberId, eventId);
     }
 }

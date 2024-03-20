@@ -23,15 +23,15 @@ spring:
 #    password: password
 #    driver-class-name: org.h2.Driver
   datasource:
-    url: jdbc:postgresql://localhost:5432/NEW
+    url: jdbc:postgresql://localhost:5432/ea_db2
     username: postgres
-    password: A123@123h
+    password: 1234567
     driver-class-name: org.postgresql.Driver
     hikari:
       maximumPoolSize: 10
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
