@@ -5,4 +5,5 @@ import com.system.Attendance.service.contract.MembersPayload;
 import edu.miu.common.service.BaseReadWriteService;
 
 public interface MembersService extends BaseReadWriteService<MembersPayload, Member, Integer> {
+    int countAttendanceForEventByMember(Integer memberId, Long eventId);
 }
