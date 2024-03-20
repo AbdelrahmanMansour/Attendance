@@ -6,7 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = "edu.miu.common, com.system.Attendance")
+@SpringBootApplication(scanBasePackages = {"edu.miu.common", "com.system.Attendance"})
 public class AttendanceApplication implements CommandLineRunner {
 
 	@Autowired

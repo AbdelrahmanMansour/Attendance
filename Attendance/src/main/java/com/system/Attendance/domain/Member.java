@@ -54,4 +54,7 @@ public class Member implements Serializable {
 		this.roles = roles;
 	}
 
+	public void unsetRole(Integer roleId){
+		roles.removeIf(role -> roleId.equals(role.getId()));
+	}
 }
