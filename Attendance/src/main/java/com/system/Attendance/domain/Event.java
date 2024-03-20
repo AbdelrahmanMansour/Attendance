@@ -41,8 +41,6 @@ public class Event implements Serializable {
             joinColumns = {@JoinColumn(name = "event_id")},
             inverseJoinColumns = {@JoinColumn(name = "member_id")})
     private List<Member> memberList = new ArrayList<Member>();
-    @OneToOne
-    private Scanner scanner;
 
     public Event() {
     }
