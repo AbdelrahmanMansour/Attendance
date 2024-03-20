@@ -12,16 +12,13 @@ import java.util.List;
 public class Scanner implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "session_id")
-    private List<Session> session;
 
    // added accountType
     private AccountType accountType;
