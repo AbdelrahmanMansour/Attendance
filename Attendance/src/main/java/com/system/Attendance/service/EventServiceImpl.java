@@ -3,6 +3,7 @@ package com.system.Attendance.service;
 import com.system.Attendance.domain.Event;
 import com.system.Attendance.domain.Member;
 import com.system.Attendance.repository.EventRepository;
+import com.system.Attendance.repository.MembersRepository;
 import com.system.Attendance.service.contract.EventPayload;
 import com.system.Attendance.service.mapper.EventToEventPayloadMapper;
 import edu.miu.common.service.BaseReadWriteServiceImpl;
@@ -23,14 +24,18 @@ public class EventServiceImpl extends BaseReadWriteServiceImpl<EventPayload, Eve
     @Autowired
     EventToEventPayloadMapper eventToEventPayloadMapper;
 
-    public EventPayload addMembersToEvent(Long eventId, Set<Member> members) {
+    @Autowired
+    MembersRepository membersRepository;
+
+    public EventPayload addMembersToEvent(Long eventId, List<Integer> members) {
         Optional<Event> eventResponse = eventRepository.findById(eventId);
         if (eventResponse.isEmpty()){
             throw new EntityNotFoundException("No Event With ID: " + eventId);
         }
+        List<Member> listMembers = membersRepository.findAllById(members);
         Event event = eventResponse.get();
         List<Member> eventMembers = event.getMemberList();
-        eventMembers.addAll(members);
+        eventMembers.addAll(listMembers);
         event.setMemberList(eventMembers);
         event = eventRepository.save(event);
         return eventToEventPayloadMapper.map(event);
