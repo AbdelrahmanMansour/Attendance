@@ -23,12 +23,12 @@ class MembersServiceImplTest {
     @TestConfiguration
     static class MemberServiceConfiguration {
         @Bean
-        public MemberService membersService() {
+        public MemberService memberService() {
             return new MembersServiceImpl();
         }
     }
     @Autowired
-    private MemberService membersService;
+    private MemberService memberService;
 
     @MockBean
     private MembersRepository membersRepository;
@@ -44,7 +44,7 @@ class MembersServiceImplTest {
     @Test
     void getEmptyMemberAttendanceOverAccount() {
         List<MemberAttendenceOverAccount> expected = new ArrayList<>();
-        List<MemberAttendenceOverAccount> result = membersService.getMemberAttendanceOverAccount(5);
+        List<MemberAttendenceOverAccount> result = memberService.getMemberAttendanceOverAccount(5);
         assertThat(result).isEqualTo(expected);
     }
 }
