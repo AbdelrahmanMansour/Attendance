@@ -16,7 +16,10 @@ public class Session implements Serializable {
     private Long id;
     private String startTime;
     private String endTime;
-    @ManyToMany(mappedBy = "sessions")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "session_member",
+            joinColumns = {@JoinColumn(name = "session_id")},
+            inverseJoinColumns = {@JoinColumn(name = "member_id")})
     private List<Member> memberList = new ArrayList<Member>();
     public Session() {
     }
