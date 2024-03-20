@@ -1,5 +1,6 @@
 package com.system.Attendance.domain;
 
+import com.system.Attendance.enums.AccountType;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -21,6 +22,8 @@ public class Scanner implements Serializable {
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "session_id")
     private List<Session> session;
+
+    private AccountType accountType;
 
     public Scanner() {
     }
