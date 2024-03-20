@@ -1,6 +1,7 @@
 package com.system.Attendance.service.contract;
 
 
+import com.system.Attendance.enums.AccountType;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -10,6 +11,6 @@ public class MemberAttendenceOverAccount implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String accountType;
+    private AccountType accountType;
     private long count;
 }

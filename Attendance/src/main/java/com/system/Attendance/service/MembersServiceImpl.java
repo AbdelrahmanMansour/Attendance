@@ -1,5 +1,7 @@
 package com.system.Attendance.service;
+
 import com.system.Attendance.domain.Member;
+import com.system.Attendance.enums.AccountType;
 import com.system.Attendance.repository.MembersRepository;
 import com.system.Attendance.service.contract.MemberAttendenceOverAccount;
 import com.system.Attendance.service.contract.MembersPayload;
@@ -20,7 +22,7 @@ public class MembersServiceImpl extends BaseReadWriteServiceImpl<MembersPayload,
         List<MemberAttendenceOverAccount> result = new ArrayList<>();
         for(int i = 0; i < list.size(); i++) {
             MemberAttendenceOverAccount member = new MemberAttendenceOverAccount();
-            String accountType = (String) list.get(i)[0];
+            AccountType accountType = (AccountType) list.get(i)[0];
             long count = (long)list.get(i)[1];
             member.setAccountType(accountType);
             member.setCount(count);
