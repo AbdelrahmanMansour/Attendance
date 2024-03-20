@@ -8,14 +8,13 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @Component
-public class GenerateData {
+public class MyGenerateData {
     private List<Member> listMember = new ArrayList<>();
     private List<Session> listSession = new ArrayList<>();
 
@@ -51,13 +50,6 @@ public class GenerateData {
         Location guy = new Location("Gym Center", "the place do exercise", LocationType.GYM);
         locationRepository.saveAll(Arrays.asList(dainingHall, library, verillHall, guy));
 
-        // create Account
-        Account eatingAccount = new Account("eating", "Account for eat", AccountType.EATING);
-        Account attendenceAccount = new Account("attendence", "Account for attendence", AccountType.ATTENDANCE);
-        Account virtualDolarAccout = new Account("virtualDolar", "Account for Virtual Dolar", AccountType.VIRTUAL_DOLLAR);
-
-        accountRepository.saveAll(Arrays.asList(eatingAccount, attendenceAccount, virtualDolarAccout));
-
         // create Scanner
         Scanner scannerEating = new Scanner( dainingHall);
         Scanner scannerAttendance1 = new Scanner( library);
@@ -66,10 +58,25 @@ public class GenerateData {
 
         scannerRepository.saveAll(Arrays.asList(scannerEating, scannerAttendance1, scannerAttendance2, scannerVirtualDolar));
 
+        // create Account
+        Account eatingAccount = new Account("eating", "Account for eat", AccountType.EATING);
+        Account attendenceAccount = new Account("attendence", "Account for attendence", AccountType.ATTENDANCE);
+        Account virtualDolarAccout = new Account("virtualDolar", "Account for Virtual Dolar", AccountType.VIRTUAL_DOLLAR);
+        eatingAccount.setScanner(scannerEating);
+        attendenceAccount.setScanner(scannerAttendance1);
+        virtualDolarAccout.setScanner(scannerVirtualDolar);
+
+        accountRepository.saveAll(Arrays.asList(eatingAccount, attendenceAccount, virtualDolarAccout));
+
+
         // create Role
         Role student = new Role("student role", "role for student");
         Role faculty = new Role("faculty role", "role for faculty");
         Role guess = new Role("fuess role", "role for faculty");
+
+        student.setAccounts(Arrays.asList(attendenceAccount, eatingAccount));
+        faculty.setAccounts(Arrays.asList(eatingAccount, attendenceAccount, virtualDolarAccout));
+        guess.addAccount(virtualDolarAccout);
 
         roleRepository.saveAll(Arrays.asList(student, faculty, guess));
 
@@ -87,18 +94,6 @@ public class GenerateData {
 
         eventRepository.saveAll(Arrays.asList(eatingEvent, classEvent, gymEvent));
 
-        // add accout role
-     //   student.setAccounts(Arrays.asList(attendenceAccount, eatingAccount));
-        attendenceAccount.addRole(student);
-        eatingAccount.addRole(student);
-
-       // faculty.setAccounts(Arrays.asList(attendenceAccount, eatingAccount, virtualDolarAccout));
-        attendenceAccount.addRole(faculty);
-        eatingAccount.addRole(faculty);
-        virtualDolarAccout.addRole(faculty);
-
-        //guess.setAccounts(Arrays.asList(virtualDolarAccout));
-        virtualDolarAccout.addRole(guess);
 
         // Create member
         for(int i = 0 ;i < maxMember; i++) {
@@ -129,6 +124,12 @@ public class GenerateData {
         memberRepository.saveAll(listMember);
 
         // create session
+        // set scheudle for event
+        eatingEvent.setSchedule(eatingSchedule);
+        classEvent.setSchedule(classSchedule);
+        gymEvent.setSchedule(gymSchedule);
+        eventRepository.saveAll(Arrays.asList(eatingEvent, classEvent, gymEvent));
+
 
         listSchedule.add(eatingSchedule);
         listSchedule.add(classSchedule);
@@ -142,15 +143,15 @@ public class GenerateData {
                 listSchedule.get(i).addSession(session);
                 for (int mem = 0; mem < maxMember; mem ++) {
                     if (i == 0) { // eating schedule for every body
+                        session.setScanner(scannerEating);
                         session.addMember(listMember.get(mem));
-                       // listMember.get(mem).addSession(session);
                     } else if ((mem % 2 ==  0 || mem % 5 == 0) && i == 1) // class schedule for student and faculty
                     {
+                        session.setScanner(scannerAttendance1);
                         session.addMember(listMember.get(mem));
-                        //listMember.get(mem).addSession(session);
                     } else if (mem % 2 == 0 && i == 2) { // gym schedule for student
+                        session.setScanner(scannerVirtualDolar);
                         session.addMember(listMember.get(mem));
-                       // listMember.get(mem).addSession(session);
                     }
                 }
                 listSession.add(session);

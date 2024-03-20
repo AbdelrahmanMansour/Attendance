@@ -16,7 +16,7 @@ import java.util.Set;
 public class Event implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private LocalDateTime startDate;
@@ -31,7 +31,6 @@ public class Event implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Account account;
-
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Schedule schedule;
