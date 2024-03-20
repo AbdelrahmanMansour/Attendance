@@ -44,6 +44,7 @@ public class Event implements Serializable {
 
     public Event() {
     }
+    
 
     public Event(String name, String description, Schedule schedule, Account account) {
         this.name = name;
