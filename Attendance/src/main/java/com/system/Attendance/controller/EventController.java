@@ -2,7 +2,6 @@ package com.system.Attendance.controller;
 
 import com.system.Attendance.domain.Event;
 import com.system.Attendance.domain.Session;
-import com.system.Attendance.repository.EventRepository;
 import com.system.Attendance.service.EventServiceImpl;
 import com.system.Attendance.service.SessionServiceImpl;
 import com.system.Attendance.service.contract.EventPayload;
@@ -45,6 +44,13 @@ public class EventController extends BaseReadWriteController<EventPayload, Event
     @PostMapping("/{eventId}/addMembers")
     public ResponseEntity<?> addMembers(@PathVariable Long eventId, @RequestBody List<Integer> members){
         return new ResponseEntity<>(eventService.addMembersToEvent(eventId, members), HttpStatus.OK);
+    }
+
+    @GetMapping("/{eventId}/attendance")
+    public ResponseEntity<?> calculateAttendance(@PathVariable Long eventId){
+        return new ResponseEntity<>(
+            eventService.calculateAttendance(eventId),
+            HttpStatus.OK);
     }
 
 }

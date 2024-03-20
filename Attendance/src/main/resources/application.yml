@@ -14,7 +14,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/NEW
     username: postgres
-    password: A123@123h
+    password: root
     driver-class-name: org.postgresql.Driver
     hikari:
       maximumPoolSize: 10
