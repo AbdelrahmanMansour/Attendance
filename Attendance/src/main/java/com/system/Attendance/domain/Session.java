@@ -21,9 +21,6 @@ public class Session implements Serializable {
             joinColumns = {@JoinColumn(name = "session_id")},
             inverseJoinColumns = {@JoinColumn(name = "member_id")})
     private List<Member> memberList = new ArrayList<Member>();
-    @ManyToOne
-    @JoinColumn(name = "scanner_id")
-    private Scanner scanner;
     public Session() {
     }
     public Session(String startTime, String endTime) {

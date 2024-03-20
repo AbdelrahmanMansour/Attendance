@@ -8,7 +8,6 @@ import com.system.Attendance.repository.ScannerRepository;
 import com.system.Attendance.repository.SessionRepository;
 import com.system.Attendance.service.contract.MembersPayload;
 import com.system.Attendance.service.contract.ScannerPayload;
-import com.system.Attendance.service.mapper.MemberToMembersPayloadMapper;
 import edu.miu.common.service.BaseReadWriteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,14 +16,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @Service
 public class ScannerServiceImpl extends BaseReadWriteServiceImpl<ScannerPayload, Scanner, Integer> implements ScannerService {
 
-    //    @Autowired
-//    private MemberToMembersPayloadMapper memberToMembersPayloadMapper;
     @Autowired
     private ScannerRepository scannerRepository;
     @Autowired
