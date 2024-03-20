@@ -59,18 +59,18 @@ public class ScannerServiceImpl extends BaseReadWriteServiceImpl<ScannerPayload,
     @Override
     public void createScanRecord(MembersPayload membersPayload) {
         Optional<Member> member = membersRepository.findById(membersPayload.getId());
-        if (member.isPresent()) {
-            Member member1 = member.get();
-            Session session = new Session();
-            if (session != null) {
-                session = new Session();
-                session.setMemberList(Collections.singletonList(member1));
-                sessionRepository.save(session);
-                Scanner scanner = new Scanner();
-                scanner.setSession(Collections.singletonList(session));
-                scannerRepository.save(scanner);
-            }
-        }
+//        if (member.isPresent()) {
+//            Member member1 = member.get();
+//            Session session = new Session();
+//            if (session != null) {
+//                session = new Session();
+//                session.setMemberList(Collections.singletonList(member1));
+//                sessionRepository.save(session);
+//                Scanner scanner = new Scanner();
+//                scanner.setSession(Collections.singletonList(session));
+//                scannerRepository.save(scanner);
+//            }
+//        }
     }
 
     @Override
