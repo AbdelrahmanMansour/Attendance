@@ -16,7 +16,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class MembersServiceImpl extends BaseReadWriteServiceImpl<MembersPayload, Member, Integer> implements MembersService
+public class MembersServiceImpl extends BaseReadWriteServiceImpl<MembersPayload, Member, Long> implements MembersService
 {
     @Autowired
     MembersRepository membersRepository;
@@ -25,7 +25,7 @@ public class MembersServiceImpl extends BaseReadWriteServiceImpl<MembersPayload,
     RoleRepository roleRepository;
 
     @Transactional
-    public List<Role> bulkAssignRoles(Integer memberId, Iterable<Integer> ids){
+    public List<Role> bulkAssignRoles(Long memberId, Iterable<Integer> ids){
         final var member = membersRepository.findById(memberId).orElse(null);
         List<Role> roles = new ArrayList<>();
         for(Integer id: ids){
@@ -42,7 +42,7 @@ public class MembersServiceImpl extends BaseReadWriteServiceImpl<MembersPayload,
     }
 
     @Transactional
-    public void removeRoleFromMember(Integer memberId, Integer roleId){
+    public void removeRoleFromMember(Long memberId, Integer roleId){
         final var member = membersRepository.findById(memberId).orElse(null);
         if(member != null){
             member.unsetRole(roleId);

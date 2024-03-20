@@ -17,22 +17,22 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/members")
-public class MembersController extends BaseReadWriteController<MembersPayload, Member, Integer> {
+public class MembersController extends BaseReadWriteController<MembersPayload, Member, Long> {
     @Autowired
     MembersService membersService;
 
     @GetMapping("/{id}/roles")
-    public List<Role> rolesOfMember(@PathVariable("id") Integer id){
+    public List<Role> rolesOfMember(@PathVariable("id") Long id){
         return membersService.findById(id).getRoles();
     }
 
     @PostMapping("/{id}/roles")
-    public List<Role> assignRolesToMember(@PathVariable("id") Integer id, @RequestBody BulkAssignRolesDTO request){
+    public List<Role> assignRolesToMember(@PathVariable("id") Long id, @RequestBody BulkAssignRolesDTO request){
         return membersService.bulkAssignRoles(id, request.roleIds());
     }
 
     @DeleteMapping("/{id}/roles/{roleId}")
-    public void bulkRemoveRolesFromMember(@PathVariable("id") Integer id, @PathVariable("roleId") Integer roleId){
+    public void bulkRemoveRolesFromMember(@PathVariable("id") Long id, @PathVariable("roleId") Integer roleId){
         membersService.removeRoleFromMember(id, roleId);
     }
 }

@@ -7,8 +7,8 @@ import edu.miu.common.service.BaseReadWriteService;
 
 import java.util.List;
 
-public interface MembersService extends BaseReadWriteService<MembersPayload, Member, Integer> {
-    public List<Role> bulkAssignRoles(Integer id, Iterable<Integer> ids);
+public interface MembersService extends BaseReadWriteService<MembersPayload, Member, Long> {
+    public List<Role> bulkAssignRoles(Long id, Iterable<Integer> ids);
 
-    public void removeRoleFromMember(Integer memberId, Integer roleId);
+    public void removeRoleFromMember(Long memberId, Integer roleId);
 }

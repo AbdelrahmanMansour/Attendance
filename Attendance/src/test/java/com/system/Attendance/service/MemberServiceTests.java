@@ -68,9 +68,9 @@ public class MemberServiceTests {
        );
 
        final var member = createTestMember();
-       member.setId(1);
+       member.setId(1L);
 
-       Mockito.when(memberRepository.findById(1)).thenReturn(Optional.of(member));
+       Mockito.when(memberRepository.findById(1L)).thenReturn(Optional.of(member));
 
        final var response = memberService.bulkAssignRoles(member.getId(), expectedRoles.stream().map(Role::getId).collect(Collectors.toList()));
 
@@ -87,7 +87,7 @@ public class MemberServiceTests {
     @Test
     public void removeAssignedRoleTest(){
         final var member = createTestMember();
-        member.setId(1);
+        member.setId(1L);
 
         final var role1 = new Role("admin","admin desc");
         final var role2 = new Role("student","student desc");
