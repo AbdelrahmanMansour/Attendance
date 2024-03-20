@@ -10,5 +10,6 @@ import java.util.List;
 
 public interface MemberService extends BaseReadWriteService <MembersPayload, Member, Integer>{
 
+    int countAttendanceForEventByMember(Integer memberId, Long eventId);
     List<MemberAttendenceOverAccount> getMemberAttendanceOverAccount(int memberId);
 }
