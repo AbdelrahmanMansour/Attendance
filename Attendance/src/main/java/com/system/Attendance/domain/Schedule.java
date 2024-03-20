@@ -18,12 +18,9 @@ public class Schedule implements Serializable {
 
     private String day;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "schedule")
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "schedule_id")
     private List<Session> sessions = new ArrayList<Session>();
-
-    @OneToOne(mappedBy = "schedule")
-    private Event event;
-
     public Schedule() {
     }
 

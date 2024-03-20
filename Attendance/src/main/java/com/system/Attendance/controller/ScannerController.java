@@ -37,4 +37,9 @@ public class ScannerController extends BaseReadWriteController<ScannerPayload, S
     public void createMemberSessionRecord( @RequestBody RecordPayload recordPayload) {
        scannerService.createMemberSessionRecord(recordPayload);
     }
+
+    @PutMapping("{scannerCode}/records")
+    public void updateMemberSessionRecord( @RequestBody RecordPayload recordPayload) {
+       scannerService.updateMemberSessionRecord(recordPayload);
+    }
 }

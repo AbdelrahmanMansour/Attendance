@@ -14,4 +14,6 @@ public interface ScannerService extends BaseReadWriteService<ScannerPayload, Sca
     List<RecordPayload> fetchRecords(Long scannerCode);
 
     void createMemberSessionRecord(RecordPayload recordPayload);
+
+    void updateMemberSessionRecord(RecordPayload recordPayload);
 }

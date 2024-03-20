@@ -18,11 +18,9 @@ public class Session implements Serializable {
     private String endTime;
     @ManyToMany(mappedBy = "sessions")
     private List<Member> memberList = new ArrayList<Member>();
-
-    @ManyToOne()
-    @JoinColumn(name = "schedule_id")
-    private Schedule schedule;
-
+    @ManyToOne
+    @JoinColumn(name = "scanner_id")
+    private Scanner scanner;
     public Session() {
     }
     public Session(String startTime, String endTime) {

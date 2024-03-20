@@ -19,10 +19,10 @@ public class Scanner implements Serializable {
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "session_id")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "scanner")
     private List<Session> session;
 
+   // added accountType
     private AccountType accountType;
 
     public Scanner() {

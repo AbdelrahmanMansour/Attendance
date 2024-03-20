@@ -37,7 +37,7 @@ public class ScannerServiceImpl extends BaseReadWriteServiceImpl<ScannerPayload,
         List<RecordPayload> recordPayloads = new ArrayList<>();
         members.forEach(member -> {
             member.getSessions().forEach(session -> {
-                if (session.getSchedule().getEvent().getScanner().getId().equals(scannerCode)) {
+                if (session.getScanner().getId().equals(scannerCode)) {
                     RecordPayload recordPayload = new RecordPayload();
                     MembersPayload membersPayload = memberToMembersPayloadMapper.map(member);
                     recordPayload.setMembersPayload(membersPayload);
@@ -61,4 +61,16 @@ public class ScannerServiceImpl extends BaseReadWriteServiceImpl<ScannerPayload,
         member.getSessions().add(session);
         membersRepository.save(member);
     }
+
+    @Override
+    public void updateMemberSessionRecord(RecordPayload recordPayload) {
+        Member member = membersRepository.findById(recordPayload.getMemberId()).get();
+        Session session = sessionRepository.findById(recordPayload.getSessionId()).get();
+        if(member.getSessions() != null && member.getSessions().contains(session)){
+            member.getSessions().remove(session);
+            membersRepository.save(member);
+        }
+    }
+
+
 }
