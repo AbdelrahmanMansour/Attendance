@@ -19,7 +19,7 @@ public class Scanner implements Serializable {
     private Location location;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "session_id")
+    @JoinColumn(name = "scanner_id")
     private List<Session> session;
 
     public Scanner() {

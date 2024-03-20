@@ -28,7 +28,7 @@ public class EventController extends BaseReadWriteController<EventPayload, Event
     }
     @GetMapping("/{eventId}/sessions")
     public List<Session> getSession(@PathVariable Long eventId){
-        return  sessionService.getSession(eventId);
+        return  sessionService.getAllSession(eventId);
     }
     @DeleteMapping("/{eventId}/sessions/{sessionId}")
     public void deleteSession(@PathVariable Long eventId, @PathVariable Long sessionId){
