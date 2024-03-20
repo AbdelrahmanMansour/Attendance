@@ -6,6 +6,7 @@ import com.system.Attendance.repository.MembersRepository;
 import com.system.Attendance.repository.RoleRepository;
 import com.system.Attendance.service.contract.MembersPayload;
 import edu.miu.common.service.BaseReadWriteServiceImpl;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class MembersServiceImpl extends BaseReadWriteServiceImpl<MembersPayload, Member, Integer> implements MembersService
 {
     @Autowired

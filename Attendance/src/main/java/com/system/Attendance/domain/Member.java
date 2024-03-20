@@ -2,6 +2,7 @@ package com.system.Attendance.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -10,13 +11,14 @@ import java.util.List;
 
 @Data
 @Entity
+@AllArgsConstructor
 public class Member implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 	private String name;
 
 	private String firstName;
