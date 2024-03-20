@@ -2,7 +2,7 @@ common:
   security:
     enabled: false
   feign-oauth:
-    enabled: false
+    enabled: true
   mvc:
     enabled: false
 server:
@@ -12,9 +12,16 @@ server:
     context-path: /badge-system
 spring:
   security:
-    user:
-      name: user
-      password: 123
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id:
+            client-secret:
+#  security:
+#    user:
+#      name: user
+#      password: 123
   application:
     name: Attendance
   datasource:
