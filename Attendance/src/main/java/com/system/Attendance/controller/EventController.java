@@ -20,7 +20,6 @@ public class EventController extends BaseReadWriteController<EventPayload, Event
 
     @Autowired
     SessionServiceImpl sessionService;
-
     @Autowired
     EventServiceImpl eventService;
     @PostMapping("/{eventId}/sessions")

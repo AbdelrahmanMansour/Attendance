@@ -11,6 +11,8 @@ public class MembersPayload implements Serializable {
 
     private Integer id;
 
+    private String name;
+
     private String firstName;
 
     private String lastName;

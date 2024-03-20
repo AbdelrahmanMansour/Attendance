@@ -33,9 +33,10 @@ public class SessionServiceImpl  implements SessionService{
     public void addSession(Long eventId, List<SessionPayload> sessionPayload) {
         Optional<Event> event = eventRepository.findById(eventId);
         if(event.isPresent()){
+            List<Session> sessionlist = new ArrayList<>();
             if(event.get().getSchedule().getSessions() == null){
-                List<Session> sessionlist = new ArrayList<>();
                 sessionlist.addAll(sessionPayload.stream().map(s -> MAPPER.toEntity(s)).collect(Collectors.toList()));
+                event.get().getSchedule().setSessions(sessionlist);
             } else {
                 event.get().getSchedule().getSessions().addAll(sessionPayload.stream().map(s -> modellMapper.modelMapper().map(s, Session.class)).collect(Collectors.toList()));
             }
