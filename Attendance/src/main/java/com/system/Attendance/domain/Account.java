@@ -1,20 +1,17 @@
 package com.system.Attendance.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.system.Attendance.enums.AccountType;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Data
 public class Account implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -26,9 +23,6 @@ public class Account implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Scanner scanner;
-
-    @ManyToMany( cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
-    private List<Role> roles = new ArrayList<>();
     public Account() {
     }
 
@@ -36,14 +30,6 @@ public class Account implements Serializable {
         this.name = name;
         this.description = description;
         this.type = type;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
-
-    public void addRole(Role role) {
-        this.roles.add(role);
     }
 
 }

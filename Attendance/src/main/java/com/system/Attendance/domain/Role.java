@@ -1,6 +1,5 @@
 package com.system.Attendance.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,12 +12,18 @@ import java.util.List;
 public class Role implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String name;
 
     private String description;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "role_account",
+            joinColumns = {@JoinColumn(name = "role_id")},
+            inverseJoinColumns = {@JoinColumn(name = "account_id")})
+    private List<Account> accounts = new ArrayList<>();
 
     public Role() {
     }
@@ -34,6 +39,10 @@ public class Role implements Serializable {
 
     public void setDesciption(String desciption) {
         this.description = desciption;
+    }
+
+    public void addAccount(Account account) {
+        this.accounts.add(account);
     }
 
 
