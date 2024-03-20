@@ -1,12 +1,11 @@
 package com.system.Attendance.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -19,6 +18,12 @@ public class Role implements Serializable {
     private String name;
 
     private String description;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "role_account",
+            joinColumns = {@JoinColumn(name = "role_id")},
+            inverseJoinColumns = {@JoinColumn(name = "account_id")})
+    private List<Account> accounts = new ArrayList<>();
 
     public Role() {
     }
@@ -34,6 +39,10 @@ public class Role implements Serializable {
 
     public void setDesciption(String desciption) {
         this.description = desciption;
+    }
+
+    public void addAccount(Account account) {
+        this.accounts.add(account);
     }
 
 

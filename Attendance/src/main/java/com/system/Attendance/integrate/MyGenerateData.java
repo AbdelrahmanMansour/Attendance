@@ -74,6 +74,10 @@ public class MyGenerateData {
         Role faculty = new Role("faculty role", "role for faculty");
         Role guess = new Role("fuess role", "role for faculty");
 
+        student.setAccounts(Arrays.asList(attendenceAccount, eatingAccount));
+        faculty.setAccounts(Arrays.asList(eatingAccount, attendenceAccount, virtualDolarAccout));
+        guess.addAccount(virtualDolarAccout);
+
         roleRepository.saveAll(Arrays.asList(student, faculty, guess));
 
         Schedule eatingSchedule = new Schedule("satarday");
@@ -90,18 +94,6 @@ public class MyGenerateData {
 
         eventRepository.saveAll(Arrays.asList(eatingEvent, classEvent, gymEvent));
 
-        // add accout role
-     //   student.setAccounts(Arrays.asList(attendenceAccount, eatingAccount));
-        attendenceAccount.addRole(student);
-        eatingAccount.addRole(student);
-
-       // faculty.setAccounts(Arrays.asList(attendenceAccount, eatingAccount, virtualDolarAccout));
-        attendenceAccount.addRole(faculty);
-        eatingAccount.addRole(faculty);
-        virtualDolarAccout.addRole(faculty);
-
-        //guess.setAccounts(Arrays.asList(virtualDolarAccout));
-        virtualDolarAccout.addRole(guess);
 
         // Create member
         for(int i = 0 ;i < maxMember; i++) {

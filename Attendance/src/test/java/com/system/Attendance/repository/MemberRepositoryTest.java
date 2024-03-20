@@ -42,8 +42,7 @@ public class MemberRepositoryTest {
         Role role = new Role("student", "student role");
 
         // set relation between role and account
-        eating.addRole(role);
-        virtualDolar.addRole(role);
+        role.setAccounts(Arrays.asList(eating, virtualDolar));
         entityManager.persist(role);
 
         // create member
@@ -68,13 +67,14 @@ public class MemberRepositoryTest {
         List<Object[]> repoResult = memberRepository.getMemberAttendanceOverAccount(savedMember.getId());
         System.out.println("========= reuslt ");
         System.out.println(repoResult.size());
-        assertThat(1).isEqualTo(repoResult.size());
+        assertThat(2).isEqualTo(repoResult.size());
 
-//        String type = (String) repoResult.get(0)[0]; // EATING
-//        if (type == "EATING") {
-//            assertThat(2).isEqualTo((int) repoResult.get(0)[1]);
-//        } else {
-//            assertThat(0).isEqualTo((int) repoResult.get(0)[1]);
-//        }
+        AccountType type = (AccountType) repoResult.get(0)[0]; // EATING
+        System.out.println(type);
+        if (type == AccountType.VIRTUAL_DOLLAR) {
+            assertThat(0).isEqualTo((long) repoResult.get(0)[1]);
+        } else {
+            assertThat(2).isEqualTo((long) repoResult.get(0)[1]);
+        }
     }
 }
