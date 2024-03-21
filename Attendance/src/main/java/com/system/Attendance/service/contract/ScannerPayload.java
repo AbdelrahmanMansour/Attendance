@@ -2,6 +2,9 @@ package com.system.Attendance.service.contract;
 
 import com.system.Attendance.domain.Account;
 import com.system.Attendance.domain.Location;
+import com.system.Attendance.enums.AccountType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -14,10 +17,10 @@ import java.io.Serializable;
 public class ScannerPayload implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private String scannerCode;
-
     private Location location;
-    private Account account;
+
+    @Enumerated(EnumType.STRING)
+    private AccountType accountType;
 
     private Long id;
 }
