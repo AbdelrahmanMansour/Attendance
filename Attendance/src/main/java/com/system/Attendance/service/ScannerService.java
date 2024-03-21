@@ -13,7 +13,7 @@ import java.util.List;
 public interface ScannerService extends BaseReadWriteService<ScannerPayload, Scanner, Integer> {
 
     List<MembersPayload> fetchScannerRecords(Integer scannerCode);
-    void createScanRecord(MembersPayload membersPayload);
+    void createScanRecord(MembersPayload membersPayload, Integer sessionId );
     void deleteScanRecord(Integer scannerCode);
     MembersPayload updateScanRecord(Integer scannerCode, MembersPayload membersPayload);
     MembersPayload fetchScanRecord(Integer scannerCode, Integer memberId);

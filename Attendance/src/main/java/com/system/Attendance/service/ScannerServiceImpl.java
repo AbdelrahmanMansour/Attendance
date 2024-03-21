@@ -34,7 +34,7 @@ public class ScannerServiceImpl extends BaseReadWriteServiceImpl<ScannerPayload,
         Optional<Scanner> optionalScanner = scannerRepository.findById(scannerCode);
         if (optionalScanner.isPresent()) {
             Scanner scanner = optionalScanner.get();
-            List<Session> sessions = scanner.getSession();
+            List<Session> sessions = scanner.getSessions();
             if (sessions != null) {
                 List<MembersPayload> membersPayloadList = new ArrayList<>();
                 for (Session session : sessions) {
@@ -57,28 +57,25 @@ public class ScannerServiceImpl extends BaseReadWriteServiceImpl<ScannerPayload,
     }
 
     @Override
-    public void createScanRecord(MembersPayload membersPayload) {
+    public void createScanRecord(MembersPayload membersPayload, Integer sessionId ) {
+        Optional<Session> session = sessionRepository.findById(sessionId);
         Optional<Member> member = membersRepository.findById(membersPayload.getId());
-//        if (member.isPresent()) {
-//            Member member1 = member.get();
-//            Session session = new Session();
-//            if (session != null) {
-//                session = new Session();
-//                session.setMemberList(Collections.singletonList(member1));
-//                sessionRepository.save(session);
-//                Scanner scanner = new Scanner();
-//                scanner.setSession(Collections.singletonList(session));
-//                scannerRepository.save(scanner);
-//            }
-//        }
+        if (member.isPresent()) {
+
+            if (session.isPresent()) {
+                Session session1 = session.get();
+                session1.getMemberList().add(member.get());
+                sessionRepository.save(session1);
+            }
+        }
     }
 
     @Override
     public void deleteScanRecord(Integer scannerCode) {
         Optional<Scanner> scanner = scannerRepository.findById(scannerCode);
         if (scanner.isPresent()) {
-            if (scanner.get().getSession() != null) {
-                for (Session session : scanner.get().getSession()) {
+            if (scanner.get().getSessions() != null) {
+                for (Session session : scanner.get().getSessions()) {
                     if (session.getMemberList() != null) {
                         session.getMemberList().clear();
                     }
@@ -90,8 +87,9 @@ public class ScannerServiceImpl extends BaseReadWriteServiceImpl<ScannerPayload,
     @Override
     public MembersPayload updateScanRecord(Integer scannerCode, MembersPayload membersPayload) {
         Optional<Scanner> scanner = scannerRepository.findById(scannerCode);
-        if (scanner.isPresent() && scanner.get().getSession() != null) {
-            for (Session session : scanner.get().getSession()) {
+        if (scanner.isPresent() && scanner.get().getSessions() != null) {
+
+            for (Session session : scanner.get().getSessions()) {
                 if (session.getMemberList() != null) {
                     List<Member> members = session.getMemberList();
                     for (Member member : members) {
@@ -113,8 +111,8 @@ public class ScannerServiceImpl extends BaseReadWriteServiceImpl<ScannerPayload,
     @Override
     public MembersPayload fetchScanRecord(Integer scannerCode, Integer memberId) {
         Optional<Scanner> scanner = scannerRepository.findById(scannerCode);
-        if (scanner.isPresent() && scanner.get().getSession() != null) {
-            for (Session session : scanner.get().getSession()) {
+        if (scanner.isPresent() && scanner.get().getSessions() != null) {
+            for (Session session : scanner.get().getSessions()) {
                 if (session.getMemberList() != null) {
                     List<Member> members = session.getMemberList();
                     for (Member member : members) {

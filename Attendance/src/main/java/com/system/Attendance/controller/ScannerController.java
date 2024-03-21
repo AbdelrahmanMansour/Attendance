@@ -4,7 +4,7 @@ import com.system.Attendance.domain.Member;
 import com.system.Attendance.domain.Scanner;
 import com.system.Attendance.domain.Session;
 import com.system.Attendance.service.ScannerService;
-import com.system.Attendance.services.contract.MembersPayload;
+import com.system.Attendance.service.contract.MembersPayload;
 import com.system.Attendance.service.contract.ScannerPayload;
 import com.system.Attendance.service.contract.SessionPayload;
 import com.system.Attendance.service.mapper.MemberToMembersPayloadMapper;
@@ -37,13 +37,15 @@ public class ScannerController extends BaseReadWriteController<ScannerPayload, S
         return ResponseEntity.ok(membersPayload);
     }
     @PostMapping("/{scannerCode}/records")
-    public void createScanRecord( @RequestBody MembersPayload membersPayload) {
-        scannerService.createScanRecord(membersPayload);
+    public void createScanRecord( @RequestBody MembersPayload membersPayload, @PathVariable Integer sessionId) {
+        scannerService.createScanRecord(membersPayload, sessionId);
     }
-    @DeleteMapping("/{scannerCode}/records/{memberId}")
+    @DeleteMapping("/{scannerCode}/records}")
     public void deleteScanRecord(@PathVariable Integer scannerCode) {
         scannerService.deleteScanRecord(scannerCode);
     }
+
+
     @PutMapping("/{scannerCode}/records/{memberId}")
     public void updateScanRecord(@PathVariable Integer scannerCode, @RequestBody MembersPayload membersPayload) {
         scannerService.updateScanRecord(scannerCode, membersPayload);
