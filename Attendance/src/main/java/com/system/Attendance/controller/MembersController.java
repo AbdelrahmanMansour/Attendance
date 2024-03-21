@@ -7,6 +7,7 @@ import com.system.Attendance.service.EventService;
 import com.system.Attendance.service.MemberService;
 import com.system.Attendance.service.contract.MembersPayload;
 import edu.miu.common.controller.BaseReadWriteController;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/members")
+@AllArgsConstructor
 public class MembersController extends BaseReadWriteController<MembersPayload, Member, Integer> {
 
     @Autowired
