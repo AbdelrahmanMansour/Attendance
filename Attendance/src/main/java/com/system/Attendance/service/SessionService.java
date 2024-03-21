@@ -10,14 +10,9 @@ import java.util.List;
 
 
 public interface SessionService {
-
    void addSession(Long eventId, List<SessionPayload> sessionPayload);
-    List<Session> getSession(Long eventId);
+    List<Session> getAllSession(Long eventId);
     void deleteSession(Long eventId, Long sessionId);
     void updateSession(Long eventId, SessionPayload sessionPayload);
-
-
-
-
-
+    Session getSession(Integer sessionId);
 }

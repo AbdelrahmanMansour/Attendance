@@ -61,8 +61,7 @@ public class MemberRepositoryTest {
         Session session2 = new Session("14:00", "16:00");
 
         // same scanner
-        scanner.addSession(session);
-        scanner.addSession(session2);
+
 
         session.addMember(member);
         session2.addMember(member);
@@ -124,8 +123,6 @@ public class MemberRepositoryTest {
 
         // same scanner
 
-        scanner.addSession(session);
-        scanner.addSession(session2);
 
         // don't set member to session
 //        session.addMember(member);
