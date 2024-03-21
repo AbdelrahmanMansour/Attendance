@@ -1,16 +1,17 @@
 package com.system.Attendance.controller;
 
+import com.system.Attendance.DTO.BulkAssignRolesDTO;
 import com.system.Attendance.domain.Member;
+import com.system.Attendance.domain.Role;
 import com.system.Attendance.service.MemberService;
 import com.system.Attendance.service.contract.MembersPayload;
 import edu.miu.common.controller.BaseReadWriteController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/members")
@@ -33,5 +34,20 @@ public class MembersController extends BaseReadWriteController<MembersPayload, M
 
         int attendanceCount = memberService.countAttendanceForEventByMember(memberId, eventId);
         return new ResponseEntity<>(attendanceCount, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/roles")
+    public List<Role> rolesOfMember(@PathVariable("id") Integer id){
+        return memberService.findById(id).getRoles();
+    }
+
+    @PostMapping("/{id}/roles")
+    public List<Role> assignRolesToMember(@PathVariable("id") Integer id, @RequestBody BulkAssignRolesDTO request){
+        return memberService.bulkAssignRoles(id, request.roleIds());
+    }
+
+    @DeleteMapping("/{id}/roles/{roleId}")
+    public void bulkRemoveRolesFromMember(@PathVariable("id") Integer id, @PathVariable("roleId") Integer roleId){
+        memberService.removeRoleFromMember(id, roleId);
     }
 }
