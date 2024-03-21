@@ -3,13 +3,10 @@ package com.system.Attendance.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
@@ -59,6 +56,10 @@ public class Event implements Serializable {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public void addMember(Member member) {
+        this.memberList.add(member);
     }
 
 
