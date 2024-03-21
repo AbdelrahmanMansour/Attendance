@@ -30,7 +30,8 @@ public class EventController extends BaseReadWriteController<EventPayload, Event
     public List<Session> getAllSession(@PathVariable Long eventId){
         return  sessionService.getAllSession(eventId);
     }
-    @GetMapping("/{eventId}/sessions")
+
+    @GetMapping("/{eventId}/sessions/{sessionId}")
     public ResponseEntity<Session>getSession(@PathVariable Integer sessionId){
         return new ResponseEntity<>(
                 sessionService.getSession(sessionId),
@@ -40,7 +41,6 @@ public class EventController extends BaseReadWriteController<EventPayload, Event
     public void deleteSession(@PathVariable Long eventId, @PathVariable Long sessionId){
           sessionService.deleteSession(eventId, sessionId);
     }
-
     @PutMapping("/{eventId}/sessions")
     public void updateSession(@PathVariable Long eventId, @RequestBody SessionPayload sessionPayload){
         sessionService.updateSession(eventId, sessionPayload);
