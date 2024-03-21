@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-@SpringBootApplication(scanBasePackages = "edu.miu.common, com.system.Attendance")
+@SpringBootApplication(scanBasePackages = {"edu.miu.common", "com.system.Attendance"})
 @EnableJms
 @EnableScheduling
 public class AttendanceApplication implements CommandLineRunner {
