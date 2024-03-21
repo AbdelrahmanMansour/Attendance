@@ -7,8 +7,6 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-import java.util.List;
-
 public interface MembersRepository extends BaseRepository<Member, Integer> {
 
     List<Member> findByBalanceLessThan(Double balance);
@@ -27,6 +25,6 @@ public interface MembersRepository extends BaseRepository<Member, Integer> {
 
     //@Query("SELECT a.type, COUNT(DISTINCT s) FROM Session s JOIN s.memberList m JOIN m.roles r JOIN r.accounts a WHERE m.id = :memberId group by a.type")
 
-    @Query("select a.type, sum( (select count(s) from Session s join s.memberList sm where sm.id = m.id and s.scanner.id = a.scanner.id)) from Member m join m.roles r join r.accounts a where m.id = :memberId group by a.type")// Account a, Session s join s.scanner sc join s.memberList m JOIN m.roles r WHERE m.id = :memberId and r in elements(a.roles) GROUP BY a.type") // and a.scanner.id = s.scanner.id
+    @Query("select a.type, sum( (select count(s) from Session s join s.memberList sm where sm.id = m.id)) from Member m join m.roles r join r.accounts a where m.id = :memberId group by a.type")// Account a, Session s join s.scanner sc join s.memberList m JOIN m.roles r WHERE m.id = :memberId and r in elements(a.roles) GROUP BY a.type") // and a.scanner.id = s.scanner.id
     List<Object[]> getMemberAttendanceOverAccount( @Param("memberId") long memberId);
 }
