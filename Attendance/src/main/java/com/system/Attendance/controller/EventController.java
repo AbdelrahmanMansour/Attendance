@@ -20,7 +20,6 @@ public class EventController extends BaseReadWriteController<EventPayload, Event
 
     @Autowired
     SessionServiceImpl sessionService;
-
     @Autowired
     EventServiceImpl eventService;
     @PostMapping("/{eventId}/sessions")
@@ -28,14 +27,20 @@ public class EventController extends BaseReadWriteController<EventPayload, Event
         sessionService.addSession(eventId, sessionPayloadList);
     }
     @GetMapping("/{eventId}/sessions")
-    public List<Session> getSession(@PathVariable Long eventId){
-        return  sessionService.getSession(eventId);
+    public List<Session> getAllSession(@PathVariable Long eventId){
+        return  sessionService.getAllSession(eventId);
+    }
+
+    @GetMapping("/{eventId}/sessions/{sessionId}")
+    public ResponseEntity<Session>getSession(@PathVariable Integer sessionId){
+        return new ResponseEntity<>(
+                sessionService.getSession(sessionId),
+                HttpStatus.OK);
     }
     @DeleteMapping("/{eventId}/sessions/{sessionId}")
     public void deleteSession(@PathVariable Long eventId, @PathVariable Long sessionId){
           sessionService.deleteSession(eventId, sessionId);
     }
-
     @PutMapping("/{eventId}/sessions")
     public void updateSession(@PathVariable Long eventId, @RequestBody SessionPayload sessionPayload){
         sessionService.updateSession(eventId, sessionPayload);
