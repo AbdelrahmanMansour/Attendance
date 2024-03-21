@@ -3,18 +3,25 @@ package com.system.Attendance.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 
+
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
 public class Event implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private LocalDateTime startDate;
+
+    private LocalDateTime endDate;
     private String name;
 
     private String description;
@@ -22,49 +29,37 @@ public class Event implements Serializable {
     @ManyToOne
     private Location location;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Account account;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Schedule schedule;
 
-    @ManyToMany(mappedBy = "eventList")
-    private List<Member> members = new ArrayList<Member>();
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "event_member",
+            joinColumns = {@JoinColumn(name = "event_id")},
+            inverseJoinColumns = {@JoinColumn(name = "member_id")})
+    private List<Member> memberList = new ArrayList<Member>();
 
     public Event() {
     }
 
-    public Event(String name, String description) {
+    public Event(String name, String description, Schedule schedule, Account account) {
         this.name = name;
         this.description = description;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDesciption(String description) {
-        this.description = description;
-    }
-
-    public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
+        this.account = account;
     }
+
 
     public void setLocation(Location location) {
         this.location = location;
     }
 
-    public void setMembers(List<Member> members) {
-        this.members = members;
-    }
 
     public void setAccount(Account account) {
         this.account = account;
     }
 
-    public void addMember(Member member) {
-        this.members.add(member);
-    }
-  
+
 }
