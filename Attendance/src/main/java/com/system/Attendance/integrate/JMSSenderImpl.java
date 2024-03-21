@@ -19,7 +19,7 @@ public class JMSSenderImpl implements JMSSender {
 		jmsTemplate.convertAndSend("testQueue",text);
 	}
 
-	@JmsListener(destination = "testQueue")
+//	@JmsListener(destination = "testQueue")
 	public void receiveMessage(String text) {
 		String[] res = text.split("_");
 		System.out.println("Email to "+res[1]+" text: "+res[2]);

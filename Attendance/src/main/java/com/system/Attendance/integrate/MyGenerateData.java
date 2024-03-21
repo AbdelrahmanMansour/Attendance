@@ -144,14 +144,14 @@ public class MyGenerateData {
                 listSchedule.get(i).addSession(session);
                 for (int mem = 0; mem < maxMember; mem ++) {
                     if (i == 0) { // eating schedule for every body
-                        session.setScanner(scannerEating);
+//                        session.setScanner(scannerEating);
                         session.addMember(listMember.get(mem));
                     } else if ((mem % 2 ==  0 || mem % 5 == 0) && i == 1) // class schedule for student and faculty
                     {
-                        session.setScanner(scannerAttendance1);
+//                        session.setScanner(scannerAttendance1);
                         session.addMember(listMember.get(mem));
                     } else if (mem % 2 == 0 && i == 2) { // gym schedule for student
-                        session.setScanner(scannerVirtualDolar);
+//                        session.setScanner(scannerVirtualDolar);
                         session.addMember(listMember.get(mem));
                     }
                 }

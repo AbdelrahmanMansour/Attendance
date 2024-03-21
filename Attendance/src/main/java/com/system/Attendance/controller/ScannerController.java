@@ -23,8 +23,6 @@ public class ScannerController extends BaseReadWriteController<ScannerPayload, S
     @Autowired
     private ScannerService scannerService;
 
-
-
     @GetMapping("/{scannerCode}/records")
     public ResponseEntity<List<MembersPayload>> fetchScannerRecords(@PathVariable Integer scannerCode) {
         List<MembersPayload> membersPayloadList = scannerService.fetchScannerRecords(scannerCode);
@@ -36,11 +34,13 @@ public class ScannerController extends BaseReadWriteController<ScannerPayload, S
         MembersPayload membersPayload = scannerService.fetchScanRecord(scannerCode, memberId);
         return ResponseEntity.ok(membersPayload);
     }
+
     @PostMapping("/{scannerCode}/records")
-    public void createScanRecord( @RequestBody MembersPayload membersPayload, @PathVariable Integer sessionId) {
-        scannerService.createScanRecord(membersPayload, sessionId);
+    public void createScanRecord( @RequestBody MembersPayload membersPayload, @PathVariable(name = "scannerCode") Integer scannerId) {
+        scannerService.createScanRecord(membersPayload, scannerId);
     }
-    @DeleteMapping("/{scannerCode}/records}")
+
+    @DeleteMapping("/{scannerCode}/records")
     public void deleteScanRecord(@PathVariable Integer scannerCode) {
         scannerService.deleteScanRecord(scannerCode);
     }

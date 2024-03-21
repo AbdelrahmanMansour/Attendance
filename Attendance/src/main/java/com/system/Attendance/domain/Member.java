@@ -45,6 +45,14 @@ public class Member implements Serializable {
 		this.email = email;
 	}
 
+	public Member(String firstName, String lastName, String barCode, Double balance, String email) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.barCode = barCode;
+		this.balance = balance;
+		this.email = email;
+	}
+
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}

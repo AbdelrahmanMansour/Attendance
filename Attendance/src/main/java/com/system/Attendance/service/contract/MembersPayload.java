@@ -1,10 +1,12 @@
 package com.system.Attendance.service.contract;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.io.Serializable;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MembersPayload implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -21,4 +23,5 @@ public class MembersPayload implements Serializable {
 
     private String email;
 
+    public Long sessionId;
 }

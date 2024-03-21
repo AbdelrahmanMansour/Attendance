@@ -17,17 +17,23 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-
 @Service
 public class ScannerServiceImpl extends BaseReadWriteServiceImpl<ScannerPayload, Scanner, Integer> implements ScannerService {
 
     @Autowired
-    private ScannerRepository scannerRepository;
-    @Autowired
-    private MembersRepository membersRepository;
-    @Autowired
-    private SessionRepository sessionRepository;
+    private final ScannerRepository scannerRepository;
 
+    @Autowired
+    private final MembersRepository membersRepository;
+
+    @Autowired
+    private final SessionRepository sessionRepository;
+
+    public ScannerServiceImpl(ScannerRepository scannerRepository, MembersRepository membersRepository, SessionRepository sessionRepository) {
+        this.scannerRepository = scannerRepository;
+        this.membersRepository = membersRepository;
+        this.sessionRepository = sessionRepository;
+    }
 
     @Override
     public List<MembersPayload> fetchScannerRecords(Integer scannerCode) {
@@ -57,71 +63,89 @@ public class ScannerServiceImpl extends BaseReadWriteServiceImpl<ScannerPayload,
     }
 
     @Override
-    public void createScanRecord(MembersPayload membersPayload, Integer sessionId ) {
-        Optional<Session> session = sessionRepository.findById(sessionId);
-        Optional<Member> member = membersRepository.findById(membersPayload.getId());
-        if (member.isPresent()) {
-
-            if (session.isPresent()) {
-                Session session1 = session.get();
-                session1.getMemberList().add(member.get());
-                sessionRepository.save(session1);
+    public void createScanRecord(MembersPayload membersPayload, Integer scannerId ) {
+        Optional<Scanner> optionalScanner = scannerRepository.findById(scannerId);
+        if (optionalScanner.isPresent()) {
+            Scanner scanner = optionalScanner.get();
+            List<Session> sessions = scanner.getSessions();
+            if (sessions != null) {
+                Optional<Session> session = sessions.stream().filter(ses -> ses.getId().equals(membersPayload.getSessionId())).findFirst();
+                Optional<Member> member = membersRepository.findById(membersPayload.getId());
+                if (session.isPresent() && member.isPresent()) {
+                    Session session1 = session.get();
+                    session1.getMemberList().add(member.get());
+                    sessionRepository.save(session1);
+                }
             }
         }
     }
 
     @Override
     public void deleteScanRecord(Integer scannerCode) {
-        Optional<Scanner> scanner = scannerRepository.findById(scannerCode);
-        if (scanner.isPresent()) {
-            if (scanner.get().getSessions() != null) {
-                for (Session session : scanner.get().getSessions()) {
-                    if (session.getMemberList() != null) {
-                        session.getMemberList().clear();
-                    }
+        Optional<Scanner> scannerOptional = scannerRepository.findById(scannerCode);
+        scannerOptional.ifPresent(scanner -> {
+            List<Session> sessions = scanner.getSessions();
+            if (sessions != null) {
+                for (Session session : sessions) {
+                    session.setMemberList(new ArrayList<>()); // Clear member list
                 }
+                scannerRepository.save(scanner); // Save the changes
             }
-        }
+        });
     }
 
     @Override
     public MembersPayload updateScanRecord(Integer scannerCode, MembersPayload membersPayload) {
-        Optional<Scanner> scanner = scannerRepository.findById(scannerCode);
-        if (scanner.isPresent() && scanner.get().getSessions() != null) {
+        System.out.println("Updating scan record...");
 
-            for (Session session : scanner.get().getSessions()) {
-                if (session.getMemberList() != null) {
+        Optional<Scanner> scannerOptional = scannerRepository.findById(scannerCode);
+        if (scannerOptional.isPresent()) {
+            Scanner scanner = scannerOptional.get();
+            List<Session> sessions = scanner.getSessions();
+            if (sessions != null) {
+                for (Session session : sessions) {
                     List<Member> members = session.getMemberList();
-                    for (Member member : members) {
-                        if (member.getId().equals(membersPayload.getId())) {
-                            member.setName(membersPayload.getFirstName());
-                            member.setLastName(membersPayload.getLastName());
-                            member.setEmail(membersPayload.getEmail());
-                            membersRepository.save(member);
-                            return membersPayload;
+                    if (members != null) {
+                        for (Member member : members) {
+                            if (member.getId().equals(membersPayload.getId())) {
+                                System.out.println("Found member with ID: " + member.getId());
+
+                                member.setName(membersPayload.getFirstName());
+                                member.setLastName(membersPayload.getLastName());
+                                member.setEmail(membersPayload.getEmail());
+                                membersRepository.save(member);
+                                System.out.println("Member updated and saved: " + member);
+
+                                return membersPayload;
+                            }
                         }
                     }
                 }
             }
         }
-
+        System.out.println("Scan record update failed.");
         return null;
     }
 
+
     @Override
     public MembersPayload fetchScanRecord(Integer scannerCode, Integer memberId) {
-        Optional<Scanner> scanner = scannerRepository.findById(scannerCode);
-        if (scanner.isPresent() && scanner.get().getSessions() != null) {
-            for (Session session : scanner.get().getSessions()) {
-                if (session.getMemberList() != null) {
+        Optional<Scanner> scannerOptional = scannerRepository.findById(scannerCode);
+        if (scannerOptional.isPresent()) {
+            Scanner scanner = scannerOptional.get();
+            List<Session> sessions = scanner.getSessions();
+            if (sessions != null) {
+                for (Session session : sessions) {
                     List<Member> members = session.getMemberList();
-                    for (Member member : members) {
-                        if (member.getId().equals(memberId)) {
-                            MembersPayload membersPayload = new MembersPayload();
-                            membersPayload.setFirstName(member.getName());
-                            membersPayload.setLastName(member.getLastName());
-                            membersPayload.setEmail(member.getEmail());
-                            return membersPayload;
+                    if (members != null) {
+                        for (Member member : members) {
+                            if (member.getId().equals(memberId)) {
+                                MembersPayload membersPayload = new MembersPayload();
+                                membersPayload.setFirstName(member.getName());
+                                membersPayload.setLastName(member.getLastName());
+                                membersPayload.setEmail(member.getEmail());
+                                return membersPayload;
+                            }
                         }
                     }
                 }
@@ -130,4 +154,3 @@ public class ScannerServiceImpl extends BaseReadWriteServiceImpl<ScannerPayload,
         return null;
     }
 }
-

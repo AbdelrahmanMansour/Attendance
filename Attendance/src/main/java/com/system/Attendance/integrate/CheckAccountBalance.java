@@ -17,7 +17,7 @@ public class CheckAccountBalance {
     @Autowired
     JMSSenderImpl jmsSender;
 
-    @Scheduled(cron="*/5 * * * * *")
+//    @Scheduled(cron="*/5 * * * * *")
     public void checkAccounts(){
         List<Member> members = membersRepository.findByBalanceLessThan(200.0);
         for (Member member: members){

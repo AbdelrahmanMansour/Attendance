@@ -2,7 +2,7 @@ common:
   security:
     enabled: false
   feign-oauth:
-    enabled: true
+    enabled: false
   mvc:
     enabled: false
 server:
@@ -11,29 +11,29 @@ server:
   servlet:
     context-path: /badge-system
 spring:
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id:
-            client-secret:
 #  security:
-#    user:
-#      name: user
-#      password: 123
+#    oauth2:
+#      client:
+#        registration:
+#          google:
+#            client-id:
+#            client-secret:
+  security:
+    user:
+      name: user
+      password: 123
   application:
     name: Attendance
   datasource:
     url: jdbc:postgresql://localhost:5432/NEW
     username: postgres
-    password: A123@123h
+    password: root
     driver-class-name: org.postgresql.Driver
     hikari:
       maximumPoolSize: 10
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
