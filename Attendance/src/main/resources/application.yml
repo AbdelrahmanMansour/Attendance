@@ -2,7 +2,7 @@ common:
   security:
     enabled: false
   feign-oauth:
-    enabled: false
+    enabled: true
   mvc:
     enabled: false
 server:
@@ -11,6 +11,19 @@ server:
   servlet:
     context-path: /badge-system
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id:
+            client-secret:
+#  security:
+#    user:
+#      name: user
+#      password: 123
+  application:
+    name: Attendance
   datasource:
     url: jdbc:postgresql://localhost:5432/NEW
     username: postgres
@@ -24,12 +37,10 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-  security:
-    user:
-      name: user
-      password: 123
-  application:
-    name: cs544-202403-project
+  activemq:
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
 
 logging:
   level:

@@ -1,6 +1,6 @@
 package com.system.Attendance.service;
 
-import com.system.Attendance.domain.Member;
+
 import com.system.Attendance.domain.Scanner;
 
 import com.system.Attendance.service.contract.ScannerPayload;

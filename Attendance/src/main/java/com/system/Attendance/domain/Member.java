@@ -1,6 +1,5 @@
 package com.system.Attendance.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,7 +14,7 @@ public class Member implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 
@@ -28,17 +27,13 @@ public class Member implements Serializable {
 	private Double balance;
 
 	private String email;
-	@ManyToMany(fetch = FetchType.LAZY)
+
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinTable(name = "member_role",
 			joinColumns = {@JoinColumn(name = "member_id")},
 			inverseJoinColumns = {@JoinColumn(name = "role_id")})
 	private List<Role> roles = new ArrayList<Role>();
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "session_member",
-			joinColumns = {@JoinColumn(name = "member_id")},
-			inverseJoinColumns = {@JoinColumn(name = "session_id")})
-	private List<Session> sessions = new ArrayList<>();
 	public Member() {
 	}
 	public Member(String name, String firstName, String lastName, String barCode, Double balance, String email) {

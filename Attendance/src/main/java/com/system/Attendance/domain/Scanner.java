@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,14 +19,18 @@ public class Scanner implements Serializable {
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "session_id")
-    private List<Session> session;
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "scanner_id")
+    private List<Session> sessions = new ArrayList<>();
 
     public Scanner() {
     }
     public Scanner(Location location) {
         this.location = location;
+    }
+
+    public void addSession(Session session) {
+        this.sessions.add(session);
     }
 
 }
