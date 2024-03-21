@@ -1,6 +1,5 @@
 package com.system.Attendance.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,7 +14,7 @@ public class Member implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 
@@ -28,7 +27,8 @@ public class Member implements Serializable {
 	private Double balance;
 
 	private String email;
-	@ManyToMany(fetch = FetchType.LAZY)
+
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinTable(name = "member_role",
 			joinColumns = {@JoinColumn(name = "member_id")},
 			inverseJoinColumns = {@JoinColumn(name = "role_id")})
@@ -49,4 +49,7 @@ public class Member implements Serializable {
 		this.roles = roles;
 	}
 
+	public void unsetRole(Integer roleId){
+		roles.removeIf(role -> roleId.equals(role.getId()));
+	}
 }

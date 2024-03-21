@@ -12,15 +12,18 @@ import java.util.List;
 public class Session implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String startTime;
     private String endTime;
-    @ManyToMany(fetch = FetchType.LAZY)
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "session_member",
             joinColumns = {@JoinColumn(name = "session_id")},
             inverseJoinColumns = {@JoinColumn(name = "member_id")})
     private List<Member> memberList = new ArrayList<Member>();
+
+
     public Session() {
     }
     public Session(String startTime, String endTime) {

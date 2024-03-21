@@ -18,9 +18,9 @@ public class Scanner implements Serializable {
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "scanner_id")
-    private List<Session> session;
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "session_id")
+    private List<Session> sessions;
 
     public Scanner() {
     }
