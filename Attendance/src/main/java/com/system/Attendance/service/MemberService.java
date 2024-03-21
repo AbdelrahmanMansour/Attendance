@@ -1,5 +1,6 @@
 package com.system.Attendance.service;
 
+import com.system.Attendance.domain.Role;
 import com.system.Attendance.service.contract.MemberAttendenceOverAccount;
 import com.system.Attendance.domain.Member;
 import com.system.Attendance.service.contract.MembersPayload;
@@ -10,6 +11,9 @@ import java.util.List;
 
 public interface MemberService extends BaseReadWriteService <MembersPayload, Member, Integer>{
 
-    int countAttendanceForEventByMember(Integer memberId, Long eventId);
     List<MemberAttendenceOverAccount> getMemberAttendanceOverAccount(int memberId);
+
+    public List<Role> bulkAssignRoles(Integer id, Iterable<Integer> ids);
+
+    public void removeRoleFromMember(Integer memberId, Integer roleId);
 }

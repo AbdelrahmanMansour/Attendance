@@ -1,6 +1,6 @@
 package com.system.Attendance;
 
-import com.system.Attendance.integrate.MyGenerateData;
+import com.system.Attendance.integrate.GenerateData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -9,8 +9,6 @@ import org.springframework.jms.annotation.EnableJms;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication(scanBasePackages = "edu.miu.common, com.system.Attendance")
-@EnableJms
-@EnableScheduling
 public class AttendanceApplication implements CommandLineRunner {
 
 	@Autowired

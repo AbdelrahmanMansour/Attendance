@@ -20,5 +20,5 @@ public interface EventRepository extends BaseRepository<Event, Long> {
     List<Session> findSessionsByEventIdjpql(@Param("eventId") Long eventId);
 
     @Query("SELECT COUNT(s) FROM Event e JOIN e.schedule sch JOIN sch.sessions s JOIN s.memberList m WHERE m.id = :memberId AND e.id = :eventId")
-    int countAttendanceForEventByMember(Integer memberId, Long eventId);
+    int countAttendanceForEventByMember(Long memberId, Long eventId);
 }

@@ -102,23 +102,17 @@ public class MyGenerateData {
             // student
             if (i % 2 == 0) {
                 member.setRoles(Arrays.asList(student));
-               // student.addMember(member);
-//                member.setEventList(Arrays.asList(eatingEvent, classEvent));
-//                eatingEvent.addMember(member);
-//                classEvent.addMember(member);
+                eatingEvent.addMember(member);
+                classEvent.addMember(member);
             } else if (i % 5 == 0) {
                 // faculty
                 member.setRoles(Arrays.asList(faculty));
-              //  faculty.addMember(member);
-//                member.setEventList(Arrays.asList(eatingEvent, classEvent));
-//                eatingEvent.addMember(member);
-//                classEvent.addMember(member);
+                eatingEvent.addMember(member);
+                classEvent.addMember(member);
             } else {
                 // guess
                 member.setRoles(Arrays.asList(guess));
-               // guess.addMember(member);
-//                member.setEventList(Arrays.asList(eatingEvent));
-//                eatingEvent.addMember(member);
+                eatingEvent.addMember(member);
             }
             listMember.add(member);
         }
@@ -129,7 +123,6 @@ public class MyGenerateData {
         eatingEvent.setSchedule(eatingSchedule);
         classEvent.setSchedule(classSchedule);
         gymEvent.setSchedule(gymSchedule);
-        eventRepository.saveAll(Arrays.asList(eatingEvent, classEvent, gymEvent));
 
 
         listSchedule.add(eatingSchedule);
@@ -144,14 +137,14 @@ public class MyGenerateData {
                 listSchedule.get(i).addSession(session);
                 for (int mem = 0; mem < maxMember; mem ++) {
                     if (i == 0) { // eating schedule for every body
-                        session.setScanner(scannerEating);
+                        scannerEating.addSession(session);
                         session.addMember(listMember.get(mem));
                     } else if ((mem % 2 ==  0 || mem % 5 == 0) && i == 1) // class schedule for student and faculty
                     {
-                        session.setScanner(scannerAttendance1);
+                        scannerAttendance1.addSession(session);
                         session.addMember(listMember.get(mem));
                     } else if (mem % 2 == 0 && i == 2) { // gym schedule for student
-                        session.setScanner(scannerVirtualDolar);
+                        scannerVirtualDolar.addSession(session);
                         session.addMember(listMember.get(mem));
                     }
                 }
@@ -159,7 +152,5 @@ public class MyGenerateData {
             }
         }
         sessionRepository.saveAll(listSession);
-
-
     }
 }

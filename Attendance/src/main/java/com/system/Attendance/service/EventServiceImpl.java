@@ -10,12 +10,14 @@ import com.system.Attendance.service.contract.EventPayload;
 import com.system.Attendance.service.mapper.EventToEventPayloadMapper;
 import edu.miu.common.service.BaseReadWriteServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
+@AllArgsConstructor
 public class EventServiceImpl extends BaseReadWriteServiceImpl<EventPayload, Event, Long> implements EventService{
 
     @Autowired
@@ -46,5 +48,10 @@ public class EventServiceImpl extends BaseReadWriteServiceImpl<EventPayload, Eve
 
     public List<Session> calculateAttendance(Long eventId){
         return eventRepository.findSessionsByEventIdjpql(eventId);
+    }
+
+    @Override
+    public int countAttendanceForEventByMember(Long memberId, Long eventId) {
+        return eventRepository.countAttendanceForEventByMember(memberId, eventId);
     }
 }

@@ -22,6 +22,5 @@ public class SessionPayload implements Serializable {
 
 	private List<Member> memberList;
 
-	private Schedule schedule;
 
 }
