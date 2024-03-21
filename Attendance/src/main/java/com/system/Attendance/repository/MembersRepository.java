@@ -11,7 +11,11 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
+import java.util.List;
+
 public interface MembersRepository extends BaseRepository<Member, Integer> {
+
+    List<Member> findByBalanceLessThan(Double balance);
 
 //    @Query(value = "select ac.type , count(mb.id) from Member mb left join session_member ssmb on mb.id = ssmb.member_id " +
 //            "left join Session ss on ssmb.session_id = ss.id " +
