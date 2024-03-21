@@ -1,30 +1,47 @@
-//package com.system.Attendance.repository;
-//
-//
-//import com.system.Attendance.domain.Event;
-//import com.system.Attendance.domain.Schedule;
-//import com.system.Attendance.domain.Session;
-//import org.junit.Test;
-//import org.junit.runner.RunWith;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-//import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-//import org.springframework.test.context.junit4.SpringRunner;
-//import org.springframework.transaction.annotation.Transactional;
-//
-//import java.util.List;
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.junit.jupiter.api.Assertions.assertNotNull;
-//
-//@RunWith(SpringRunner.class)
-//@DataJpaTest
-//public class EventRepositoryTest {
-//
-//    @Autowired
-//    private TestEntityManager entityManager;
-//
-//    @Autowired
-//    private EventRepository eventRepository;
+package com.system.Attendance.repository;
+
+
+import com.system.Attendance.domain.Event;
+import com.system.Attendance.domain.Member;
+import com.system.Attendance.domain.Schedule;
+import com.system.Attendance.domain.Session;
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
+
+@RunWith(SpringRunner.class)
+@DataJpaTest
+class EventRepositoryTest {
+
+    @Mock
+    private EventRepository eventRepository;
+
+    @Test
+    public void testCountEventsByMemberIdAndEventId() {
+
+        Event event = new Event();
+        event.setId(2L);
+        Member member = new Member();
+        member.setId(1L);
+
+        when(eventRepository.countAttendanceForEventByMember(member.getId(), event.getId())).thenReturn(3);
+
+        // Execute the query using the repository
+        int count = eventRepository.countAttendanceForEventByMember(1L, 2L);
+
+        // Assert the result
+        assertEquals(3, count);
+    }
 //
 //    @Autowired
 //    private ScheduleRepository scheduleRepository;
@@ -65,4 +82,4 @@
 //        assertNotNull(sessions);
 //        assertEquals(2, sessions.size());
 //    }
-//}
+}

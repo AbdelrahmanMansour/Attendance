@@ -49,4 +49,9 @@ public class EventServiceImpl extends BaseReadWriteServiceImpl<EventPayload, Eve
     public List<Session> calculateAttendance(Long eventId){
         return eventRepository.findSessionsByEventIdjpql(eventId);
     }
+
+    @Override
+    public int countAttendanceForEventByMember(Long memberId, Long eventId) {
+        return eventRepository.countAttendanceForEventByMember(memberId, eventId);
+    }
 }

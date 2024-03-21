@@ -3,6 +3,7 @@ package com.system.Attendance.controller;
 import com.system.Attendance.DTO.BulkAssignRolesDTO;
 import com.system.Attendance.domain.Member;
 import com.system.Attendance.domain.Role;
+import com.system.Attendance.service.EventService;
 import com.system.Attendance.service.MemberService;
 import com.system.Attendance.service.contract.MembersPayload;
 import edu.miu.common.controller.BaseReadWriteController;
@@ -19,6 +20,9 @@ public class MembersController extends BaseReadWriteController<MembersPayload, M
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    EventService eventService;
     @GetMapping("/{memberId}/attendance")
     public ResponseEntity<?> getMemberAttendanceAccountType(@PathVariable("memberId") int memberId) {
         try {
@@ -29,10 +33,10 @@ public class MembersController extends BaseReadWriteController<MembersPayload, M
     }
 
     @GetMapping("/{memberId}/events/{eventId}/attendance")
-    public ResponseEntity<Integer> countAttendanceForEventByMember(@PathVariable("memberId") Integer memberId,
+    public ResponseEntity<Integer> countAttendanceForEventByMember(@PathVariable("memberId") Long memberId,
                                                                    @PathVariable("eventId") Long eventId){
 
-        int attendanceCount = memberService.countAttendanceForEventByMember(memberId, eventId);
+        int attendanceCount = eventService.countAttendanceForEventByMember(memberId, eventId);
         return new ResponseEntity<>(attendanceCount, HttpStatus.OK);
     }
 

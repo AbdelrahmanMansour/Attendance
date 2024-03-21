@@ -51,9 +51,6 @@ public class MembersServiceImpl extends BaseReadWriteServiceImpl<MembersPayload,
         }
         return result;
     }
-    public int countAttendanceForEventByMember(Integer memberId, Long eventId) {
-        return eventRepository.countAttendanceForEventByMember(memberId, eventId);
-    }
 
     @Transactional
     public List<Role> bulkAssignRoles(Integer memberId, Iterable<Integer> ids){

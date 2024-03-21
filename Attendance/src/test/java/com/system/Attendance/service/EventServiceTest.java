@@ -86,4 +86,27 @@ public class EventServiceTest {
         assertEquals(expectedSessions, result);
     }
 
+    @Test
+    public void testCountEventsByMemberIdAndEventId() {
+
+//        // Given
+        Event event = new Event();
+        event.setId(1L);
+        Member member = new Member();
+        member.setId(1L);
+
+        mock(Event.class);
+        mock(Member.class);
+        mock(EventRepository.class);
+        int expectedAttendanceCount = 3;
+        when(eventRepository.countAttendanceForEventByMember(member.getId(), event.getId())).thenReturn(expectedAttendanceCount);
+
+        // When
+        int actualAttendanceCount = eventService.countAttendanceForEventByMember(member.getId(), event.getId());
+//
+//        // Then
+        assertEquals(expectedAttendanceCount, actualAttendanceCount);
+        verify(eventRepository).countAttendanceForEventByMember(member.getId(), event.getId());
+    }
+
 }
