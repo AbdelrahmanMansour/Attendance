@@ -16,10 +16,7 @@ public class Schedule implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
     private String day;
-
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id")
     private List<Session> sessions = new ArrayList<Session>();
