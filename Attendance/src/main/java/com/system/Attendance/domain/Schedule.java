@@ -11,13 +11,12 @@ import java.util.List;
 @Entity
 @Data
 public class Schedule implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String day;
-
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id")
     private List<Session> sessions = new ArrayList<Session>();
