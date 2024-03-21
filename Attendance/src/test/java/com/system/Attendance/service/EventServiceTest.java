@@ -1,4 +1,4 @@
-package com.system.Attendance.Service;
+package com.system.Attendance.service;
 
 import com.system.Attendance.domain.Event;
 import com.system.Attendance.domain.Member;
@@ -6,16 +6,12 @@ import com.system.Attendance.domain.Session;
 import com.system.Attendance.repository.EventRepository;
 import com.system.Attendance.repository.MembersRepository;
 import com.system.Attendance.repository.SessionRepository;
-import com.system.Attendance.service.EventServiceImpl;
-import com.system.Attendance.service.contract.EventPayload;
 import com.system.Attendance.service.mapper.EventToEventPayloadMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,10 +23,8 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest
 public class EventServiceTest {
 
-    @Autowired
     private EventServiceImpl eventService;
 
     @Mock
@@ -40,22 +34,23 @@ public class EventServiceTest {
     private MembersRepository membersRepository;
 
     @Mock
+    private EventToEventPayloadMapper eventToEventPayloadMapper;
+
+    @Mock
     private SessionRepository sessionRepository;
 
     @BeforeEach
     public void setEventService(){
         eventService = new EventServiceImpl(
                 eventRepository,
-                new EventToEventPayloadMapper(),
+                eventToEventPayloadMapper,
                 membersRepository,
                 sessionRepository
-
         );
     }
 
     @Test
     public void testAddMembersToEvent() {
-        // Arrange
         Long eventId = 1L;
         List<Integer> members = Arrays.asList(1, 2, 3);
 
@@ -67,30 +62,25 @@ public class EventServiceTest {
         when(eventRepository.findById(eventId)).thenReturn(Optional.of(event));
         when(membersRepository.findAllById(members)).thenReturn(memberList);
 
-        // Act
-        EventPayload result = eventService.addMembersToEvent(eventId, members);
+        eventService.addMembersToEvent(eventId, members);
 
-        // Assert
         verify(eventRepository, times(1)).findById(eventId);
         verify(membersRepository, times(1)).findAllById(members);
         verify(eventRepository, times(1)).save(event);
 
-        assertNotNull(result);
-        // Add more assertions as needed based on your implementation
+        assertNotNull(event.getMemberList());
+        assertEquals(event.getMemberList(), memberList);
     }
 
     @Test
     public void testCalculateAttendance() {
-        // Arrange
         Long eventId = 1L;
         List<Session> expectedSessions = Arrays.asList(new Session(), new Session());
 
         when(eventRepository.findSessionsByEventIdjpql(eventId)).thenReturn(expectedSessions);
 
-        // Act
         List<Session> result = eventService.calculateAttendance(eventId);
 
-        // Assert
         verify(eventRepository, times(1)).findSessionsByEventIdjpql(eventId);
         assertEquals(expectedSessions.size(), result.size());
         assertEquals(expectedSessions, result);
